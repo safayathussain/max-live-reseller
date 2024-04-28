@@ -1,5 +1,19 @@
+'use client'
 import { Inter } from "next/font/google";
+import { ThemeProvider } from '@mui/material/styles';
 import "./globals.css";
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '##EE6093', // Your primary color
+    },
+    secondary: {
+      main: '#ffc107', // Your secondary color
+    },
+  },
+});
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +25,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <ThemeProvider theme={theme}>
       <body className={`${inter.className} bg-[#EEF0F6]`}>{children}</body>
+      </ThemeProvider>
     </html>
   );
 }
