@@ -65,7 +65,7 @@ const Sidebar = ({ open, setOpen }) => {
                     <HiMenu size={22} color={'white'} />
                 </button>
             </div>
-            <div class={`hs-overlay bg-gradiantBg ${open ? 'ml-0' : '-ml-64 lg:ml-0'} transition-all duration-300 transform  fixed top-0 start-0 bottom-0 z-[60] w-64 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 `}>
+            <div className={`hs-overlay bg-gradiantBg ${open ? 'ml-0' : '-ml-64 lg:ml-0'} transition-all duration-300 transform  fixed top-0 start-0 bottom-0 z-[60] w-64 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 `}>
                 <div className="px-6 flex justify-center">
                     <a className="flex-none font-semibold " href="#" >
                         <Image src={logo}></Image>
