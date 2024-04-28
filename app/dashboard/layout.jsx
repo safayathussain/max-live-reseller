@@ -13,7 +13,7 @@ const DashboardLayout = ({ children }) => {
                 <Navbar />
             </div>
             
-            <div className={`w-full h-full bg-black fixed top-0 left-0 opacity-45 ${open ? 'block' : 'hidden'}`} onClick={() => setOpen(false)}>
+            <div className={`w-full h-full bg-black absolute z-50 duration-300 top-0 left-0 opacity-45 ${open ? 'block' : 'hidden'}`} onClick={() => setOpen(false)}>
 
             </div>
             <div className='w-full h-full lg:ml-[255px] lg:max-w-[calc(100vw-255px)] px-7 py-7 lg:px-16 lg:py-10' onClick={() => setOpen(false)}>

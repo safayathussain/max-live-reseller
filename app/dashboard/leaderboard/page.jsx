@@ -14,7 +14,7 @@ const Page = () => {
       </div>
       <div className="bg-white p-4 mt-6 rounded-lg">
         {data.map((item, index) => (
-          <div key={index} className="flex p-1 sm:p-5 bg-[#EEF0F6] border-[#5C2D95] border border-opacity-50 items-center justify-between mb-2">
+          <div key={index} className="flex p-1 sm:p-5 bg-[#EEF0F6] rounded-md border-[#5C2D95] border border-opacity-50 items-center justify-between mb-2">
             <div className='flex items-center'>
               <div>
                 <Image src={logo} className="size-14" />
@@ -25,7 +25,7 @@ const Page = () => {
               </div>
             </div>
             <div>
-              <p className="text-[#5C2D95] font-bold text-xs">{item.id}</p>
+              <p className="text-[#5C2D95] font-bold text-xs mr-2">{item.id}</p>
             </div>
           </div>
         ))}

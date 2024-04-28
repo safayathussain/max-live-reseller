@@ -4,12 +4,14 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
      colors: {
       'primary': '#D5ADF6',
       'grayColor': '#626262',
+      'lightGray': '#A7A7A7',
       'error': '#F4828F'
      },
      fontSize: {
@@ -20,5 +22,5 @@ module.exports = {
     },
     },
   },
-  plugins: [],
+  plugins: [require('flowbite/plugin')],
 };

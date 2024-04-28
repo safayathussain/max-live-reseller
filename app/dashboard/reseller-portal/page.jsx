@@ -1,3 +1,6 @@
+'use client'
+import React from 'react'
+
 const page = () => {
   return (
     <div>
@@ -6,41 +9,33 @@ const page = () => {
           User Reseller Portal
         </p>
       </div>
-      <div className="bg-white rounded-lg w-full py-16 flex justify-center items-center mt-6">
-        <div className='lg:border-[#D5ADF6] sm:border lg:border-[4px] rounded-lg p-8'>
+      <div className="bg-white rounded-lg w-full py-16 flex justify-center items-center mt-6 ">
+        <div className='sm:border-[#D5ADF6] sm:border-[2px] md:border-[4px] rounded-lg p-8 max-w-[350px] w-full'>
           <div>
             <p className='text-md font-semibold text-[#5C2D95]'>User Id</p>
           </div>
           <div>
-            <div className="mx-auto mt-8">
-              <input
-                type="text"
-                className="w-full lg:w-[20vw] rounded-lg py-2 px-4 border-[1px] border-[#A7A7A7] outline-none"
-              />
-              <p className="relative bottom-[48px] left-4 text-gray-400 bg-white w-20 font-semibold pl-1 text-[9px]">
-                User ID
-              </p>
-              <div className="mx-auto mt-2">
-                <input
-                  type="text"
-                  className="w-full lg:w-[20vw] rounded-lg py-2 px-4 border-[1px] border-[#A7A7A7] outline-none"
-                />
-                <p className="relative bottom-[48px] left-4 text-gray-400 bg-white w-20 font-semibold pl-1 text-[9px]">
-                  User Name
-                </p>
+            <div className="flex flex-col  w-full mt-8 gap-4">
+              {/* userid */}
+              <div class="relative w-full">
+                <input type="text" id="useridField" className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer" placeholder=" " />
+                <label for="useridField" className=" text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">USER ID</label>
               </div>
-              <div className="mx-auto mt-2">
-                <input
-                  type="text"
-                  className="w-full lg:w-[20vw] rounded-lg py-2 px-4 border-[1px] border-[#A7A7A7] outline-none"
-                />
-                <p className="relative bottom-[48px] left-4 text-gray-400 bg-white w-20 font-semibold pl-1 text-[9px]">
-                  Password
-                </p>
+              {/* username */}
+              <div class="relative w-full">
+                <input type="text" id="username" className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer" placeholder=" " />
+                <label for="username" className=" text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">USERNAME</label>
               </div>
-              <div className='mt-44'>
-                <button className='lg:w-[20vw] bg-[#EE6093] px-[108px] py-2 rounded-lg text-[9px] whitespace-nowrap text-white font-semibold mx-auto'><span>Add Reseller</span></button>
+              {/* password */}
+              <div class="relative w-full">
+                <input type="password" id="password" className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer" placeholder=" " />
+                <label for="password" className=" text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">PASSWORD</label>
               </div>
+            </div>
+            <div className=" mt-24 max-w-[350px] w-full ">
+              <button className=" bg-[#EE6093]  w-full py-2 rounded-lg text-white font-semibold">
+                Add Reseller
+              </button>
             </div>
           </div>
         </div>
@@ -50,3 +45,7 @@ const page = () => {
 };
 
 export default page;
+
+
+
+
