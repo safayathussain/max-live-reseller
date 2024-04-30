@@ -83,7 +83,7 @@ const Sidebar = ({ open, setOpen }) => {
                     <ul className="space-y-0.5">
                         {
                             items.map((item, i) => <li>
-                                <Link key={i} className={pathname === item.link ? 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-white bg-primary' : 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-grayColor hover:bg-gray-100'} href={item.link}>
+                                <Link key={i} onClick={() => setOpen(false)} className={pathname === item.link ? 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-white bg-primary' : 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-grayColor hover:bg-gray-100'} href={item.link}>
                                     <span className={pathname === item.link ? 'active-icon' : 'pending-icon'} >{item.icon}</span>
                                     {item.title}
                                 </Link>
