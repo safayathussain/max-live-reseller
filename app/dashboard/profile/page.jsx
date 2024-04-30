@@ -11,7 +11,7 @@ const page = () => {
       <div className="bg-white w-full min-h-[calc(100vh-200px)] flex items-center justify-center rounded-lg ">
         <div className='flex justify-center px-8 py-4 text-center'>
           <div>
-            <p className='text-3xl'>Your Profile</p>
+            <p className='text-xl text-grayColor'>Your Profile</p>
             <Image src={logo} className='size-20 rounded-full mx-auto mt-4'></Image>
             <div>
               <div className="flex flex-col  sm:min-w-[350px] w-full mt-8 gap-4">
@@ -74,7 +74,7 @@ const page = () => {
               </div>
               <div className="mt-3 max-w-[350px] w-full flex justify-start">
                 <button className=" bg-primary  w-20 py-2 rounded-lg text-white font-semibold">
-                  Send
+                  Save Changes
                 </button>
               </div>
             </div>
