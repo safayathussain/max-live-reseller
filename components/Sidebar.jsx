@@ -4,7 +4,15 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import logo from '@/public/logo.svg';
+import { usePathname } from 'next/navigation';
+import  Link  from 'next/link';
+import '../app/globals.css'
+
+
 const Sidebar = ({ open, setOpen }) => {
+   
+   const pathname = usePathname();
+   
     const items = [
         {
             title: 'Dashboard',
@@ -65,7 +73,7 @@ const Sidebar = ({ open, setOpen }) => {
                     <HiMenu size={22} color={'white'} />
                 </button>
             </div>
-            <div className={`hs-overlay bg-gradiantBg ${open ? 'ml-0' : '-ml-64 lg:ml-0'} transition-all duration-300 transform  fixed top-0 start-0 bottom-0 z-[60] w-64 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 `}>
+            <div class={`hs-overlay bg-gradiantBg ${open ? 'ml-0' : '-ml-64 lg:ml-0'} transition-all duration-300 transform  fixed top-0 start-0 bottom-0 z-[60] w-64 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 `}>
                 <div className="px-6 flex justify-center">
                     <a className="flex-none font-semibold " href="#" >
                         <Image src={logo}></Image>
@@ -75,20 +83,15 @@ const Sidebar = ({ open, setOpen }) => {
                     <ul className="space-y-0.5">
                         {
                             items.map((item, i) => <li>
-                                <a key={i} className="flex items-center gap-x-3.5 py-2 px-8 duration-100  text-grayColor hover:bg-gray-100 " href={item.link}>
-                                    {item.icon}
+                                <Link key={i} className={pathname === item.link ? 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-white bg-primary' : 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-grayColor hover:bg-gray-100'} href={item.link}>
+                                    <span className={pathname === item.link ? 'active-icon' : 'pending-icon'} >{item.icon}</span>
                                     {item.title}
-                                </a>
+                                </Link>
                             </li>)
                         }
 
                     </ul>
                 </nav>
-                <div className='w-full px-5'>
-                    <button className='rounded-md lg:hidden text-sm block bg-white border border-error text-error w-full py-2 whitespace-nowrap  font-medium'>
-                        Log Out
-                    </button>
-                </div>
             </div>
         </div>
     )
