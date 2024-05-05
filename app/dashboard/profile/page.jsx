@@ -36,7 +36,7 @@ const page = () => {
             </div>
             <div>
               <div className="flex flex-col  sm:min-w-[350px] w-full mt-4 gap-4">
-                <div class="relative w-full">
+                <div className="relative w-full">
                   <input
                     type="email"
                     id="useridField"
@@ -50,7 +50,7 @@ const page = () => {
                     Your Email
                   </label>
                 </div>
-                <div class="relative w-full">
+                <div className="relative w-full">
                   <input
                     type="email"
                     id="useridField"
@@ -64,7 +64,7 @@ const page = () => {
                     Your Email
                   </label>
                 </div>
-                <div class="relative w-full">
+                <div className="relative w-full">
                   <input
                     type="email"
                     id="useridField"
@@ -78,7 +78,7 @@ const page = () => {
                     Your Email
                   </label>
                 </div>
-                <div class="relative w-full">
+                <div className="relative w-full">
                   <input
                     type="email"
                     id="useridField"
