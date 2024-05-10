@@ -266,7 +266,7 @@ export default function HistoryTable() {
                     </thead>
                     <tbody>
                         {currentItems.map((data) => (
-                            <tr key={data.id} className="border-b ">
+                            <tr key={data.id} className="border-b whitespace-nowrap">
                                 <td className="px-4 py-4">{data.sl}</td>
                                 <td onClick={() => setOpen(true)} className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
                                     {data.fullName}
@@ -281,18 +281,18 @@ export default function HistoryTable() {
                 </table>
             </div>
             {/* page footer */}
-            <div className="flex justify-between my-10 px-3 md:px-5">
+            <div className="flex flex-col gap-3 md:flex-row justify-between my-10 md:px-5">
                 {/* page number */}
                 <div className="flex justify-start items-center font-semibold">
                     {showingText}
                 </div>
                 {/* Pagination */}
-                <div className="flex justify-end items-center">
+                <div className="flex justify-start md:justify-end items-center">
                     <nav aria-label="Pagination">
                         <ul className="inline-flex border rounded-sm shadow-md">
                             <li>
                                 <button
-                                    className="py-2 px-4 text-gray-700 bg-gray-100 focus:outline-none"
+                                    className="py-2 px-4 text-gray-700 bg-gray-100 text-xs sm:text-sm focus:outline-none"
                                     onClick={() => paginate(currentPage - 1)}
                                     disabled={currentPage === 1}
                                 >
@@ -305,13 +305,13 @@ export default function HistoryTable() {
                                     <button
                                         onClick={() => paginate(currentPage - 1)}
                                         disabled={currentPage === 1}
-                                        className={`py-2 px-4  bg-white text-gray-700 hover:bg-gray-100 focus:outline-none `}
+                                        className={`py-2 px-4  bg-white text-gray-700 text-xs sm:text-sm hover:bg-gray-100 focus:outline-none `}
                                     >
                                         {currentPage - 1}
                                     </button>
                                 }
                                 <button
-                                    className={`py-2 px-4 text-gray-700 bg-gray-100 focus:outline-none`}
+                                    className={`py-2 px-4 text-gray-700 bg-gray-100 text-xs sm:text-sm focus:outline-none`}
                                 >
                                     {currentPage}
                                 </button>
@@ -320,22 +320,22 @@ export default function HistoryTable() {
                                         currentPage === Math.ceil(data.length / dataPerPage)
                                     }
                                     onClick={() => paginate(currentPage + 1)}
-                                    className={`py-2 px-4  bg-white text-gray-700 hover:bg-gray-100 focus:outline-none `}
+                                    className={`py-2 px-4  bg-white text-gray-700 text-xs sm:text-sm hover:bg-gray-100 focus:outline-none `}
                                 >
                                     {currentPage + 1}
                                 </button>
                                 <span
-                                    className={`py-2 px-4  bg-white text-gray-700 hover:bg-gray-100 focus:outline-none cursor-not-allowed`}
+                                    className={`py-2 px-4  bg-white text-gray-700 text-xs sm:text-sm hover:bg-gray-100 focus:outline-none cursor-not-allowed`}
                                 >
                                     ...
                                 </span>
                                 <button
-                                    className={`py-2 px-4  bg-white text-gray-700 hover:bg-gray-100 focus:outline-none `}
+                                    className={`py-2 px-4  bg-white text-gray-700 text-xs sm:text-sm hover:bg-gray-100 focus:outline-none `}
                                 >
                                     {Math.ceil(data.length / dataPerPage)}
                                 </button>
                                 <button
-                                    className="py-2 px-4 text-gray-700 bg-gray-100 focus:outline-none"
+                                    className="py-2 px-4 text-gray-700 bg-gray-100 text-xs sm:text-sm focus:outline-none"
                                     onClick={() => paginate(currentPage + 1)}
                                     disabled={
                                         currentPage === Math.ceil(data.length / dataPerPage)
