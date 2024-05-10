@@ -1,3 +1,5 @@
+import HistoryTable from "@/components/Dashboard/Table/HistoryTable";
+
 const page = () => {
   return (
     <div>
@@ -5,8 +7,9 @@ const page = () => {
         <p className="text-xl font-bold text-[#5C2D95]">Beans Send History</p>
       </div>
       <div className="bg-white rounded-lg w-full pt-8 flex justify-center items-center mt-6 ">
-        <div className="relative  w-full px-5 max-w-[calc(100vw-50px)] max-h-[calc(100vh-259px)] overflow-x-scroll">
-          <table className="w-full text-sm  rtl:text-right text-center whitespace-nowrap">
+        <div className="  w-full px-5 max-w-[calc(100vw-50px)] max-h-[calc(100vh-259px)] overflow-x-scroll">
+          <HistoryTable/>
+          {/* <table className="w-full text-sm  rtl:text-right text-center whitespace-nowrap">
             <thead className="text-xs text-[#B5BFC9]  uppercase  ">
               <tr>
                 <th scope="col" className="px-6 py-3 font-medium text-sm ">
@@ -261,7 +264,7 @@ const page = () => {
                 <td className="px-6 py-4">1232</td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
         </div>
       </div>
     </div>

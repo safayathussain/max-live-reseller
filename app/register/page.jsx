@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import logo from '@/public/logo.svg'
 
 
 
@@ -6,8 +8,11 @@ const page = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="bg-white mt-6 py-8 px-5 rounded-xl flex flex-col items-center w-96">
+        <div className="flex justify-center mb-4">
+          <Image src={logo}></Image>
+        </div>
         <div className="text-center">
-          <p className="text-xl font-semibold text-[#5C2D95]">Register</p>
+          <p className="text-xl font-semibold text-[#5C2D95]">Please Register</p>
         </div>
         <div className="flex flex-col max-w-[350px] w-full mt-8 gap-4">
           {/* userid */}

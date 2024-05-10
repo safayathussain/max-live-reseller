@@ -10,9 +10,12 @@ module.exports = {
     extend: {
      colors: {
       'primary': '#D5ADF6',
-      'grayColor': '#626262',
-      'lightGray': '#A7A7A7',
-      'error': '#F4828F'
+        'secondary': '#5C2D95',
+        'grayColor': '#626262',
+        'lightGray': '#A7A7A7',
+        'error': '#F4828F',
+        'silver': '#EEF0F6',
+        'lightPink': '#EE6093',
      },
      fontSize: {
       'xxs': '9px'
