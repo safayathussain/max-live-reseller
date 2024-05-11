@@ -1,7 +1,8 @@
 import HistoryTable from "@/components/Dashboard/Table/HistoryTable";
 
 const page = () => {
-  throw new 'Failed to fetch data from the server'
+  const dsa = 'fds'
+  console.log(dsa.name)
   return (
     <div>
       <div>
