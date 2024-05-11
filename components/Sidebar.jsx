@@ -76,7 +76,7 @@ const Sidebar = ({ open, setOpen }) => {
             <div className={`hs-overlay bg-gradiantBg ${open ? 'ml-0' : '-ml-64 lg:ml-0'} transition-all duration-300 transform  fixed top-0 start-0 bottom-0 z-[60] w-64 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 overflow-y-hidden`}>
                 <div className="px-6 flex justify-center">
                     <a className="flex-none font-semibold " href="#" >
-                        <Image src={logo}></Image>
+                        <Image src={logo} alt=''></Image>
                     </a>
                 </div>
                 <nav className="hs-accordion-group py-6 w-full mt-5 flex flex-col flex-wrap" >

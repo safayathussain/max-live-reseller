@@ -17,7 +17,7 @@ const Page = () => {
           <div key={index} className="flex p-1 sm:p-5 bg-[#EEF0F6] rounded-md border-[#5C2D95] border border-opacity-50 items-center justify-between mb-2">
             <div className='flex items-center'>
               <div>
-                <Image src={logo} className="size-14" />
+                <Image src={logo} className="size-14" alt=""/>
               </div>
               <div className="ml-2 text-[#5C2D95]">
                 <p className="text-xs sm:text-base">Reseller Portal BD Agency ID: {item.id}</p>

@@ -1,5 +1,6 @@
-import {  Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
+import Providers from "@/components/Providers";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -17,7 +18,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-        <body className={`${poppins.variable} bg-[#EEF0F6] overflow-x-hidden`}>{children}</body>
+      <body className={`${poppins.variable} bg-[#EEF0F6] overflow-x-hidden`}>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }

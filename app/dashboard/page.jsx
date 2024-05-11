@@ -14,7 +14,7 @@ const page = () => {
         <div className="flex justify-between flex-col md:flex-row gap-4">
           <div className="bg-white flex px-8 py-4 rounded-xl  w-full">
             <div className="flex items-center mr-4">
-              <Image className="size-12" src={bills}></Image>
+              <Image className="size-12" src={bills} alt=""></Image>
             </div>
             <div>
               <p className="font-medium whitespace-nowrap text-[#5C2D95]">
@@ -25,7 +25,7 @@ const page = () => {
           </div>
           <div className="bg-white flex px-8 py-4  rounded-xl w-full">
             <div className="flex items-center mr-4">
-              <Image className="size-12" src={transactions}></Image>
+              <Image className="size-12" src={transactions} alt=""></Image>
             </div>
             <div>
               <p className="font-medium whitespace-nowrap text-[#5C2D95]">

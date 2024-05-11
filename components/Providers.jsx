@@ -1,12 +1,21 @@
 'use client'
+import { persistor, store } from '@/redux/store'
+import { ThemeProvider } from '@mui/material'
 import React from 'react'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const Providers = ({ children }) => {
     return (
         <div>
-            <ThemeProvider theme={theme}>
-                {children}
-            </ThemeProvider>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+
+                    {/* <ThemeProvider theme={theme}> */}
+                    {children}
+                    {/* </ThemeProvider> */}
+                </PersistGate>
+            </Provider>
         </div>
     )
 }
