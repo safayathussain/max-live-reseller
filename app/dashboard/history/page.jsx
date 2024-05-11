@@ -1,8 +1,6 @@
 import HistoryTable from "@/components/Dashboard/Table/HistoryTable";
 
 const page = () => {
-  const dsa = 'fds'
-  console.log(dsa.name)
   return (
     <div>
       <div>

@@ -15,7 +15,7 @@ const page = () => {
             <p className='text-md font-semibold text-[#5C2D95]'>User Id</p>
           </div>
           <div>
-            <div className="flex flex-col  w-full mt-8 gap-4">
+            <div className="flex flex-col  w-full mt-5 gap-4">
               {/* userid */}
               <div className="relative w-full">
                 <input type="text" id="useridField" className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer" placeholder=" " />
