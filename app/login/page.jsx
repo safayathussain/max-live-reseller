@@ -15,8 +15,11 @@ const page = async () => {
   const handleSubmit = (e) => {
 
   }
-  const url = 'https://jsonplaceholder.typicode.com/posts/1';
-  const {data} = await FetchApi({url, method: 'get'})
+  const callbackFunc =  () => {
+    console.log('hi')
+  }
+  const url = '/todos';
+  const {data, status} = await FetchApi({url, method: 'get', callback: callbackFunc})
   console.log(data)
   return (
     <div className="flex justify-center items-center h-screen">
