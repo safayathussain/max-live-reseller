@@ -1,13 +1,24 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import bills from "@/public/bills.svg";
 import transactions from "@/public/transactions.svg";
 import Image from "next/image";
 import { TextField, ThemeProvider } from "@mui/material";
 import { theme } from "@/utils/muiTheme";
+import useClickOutside from "@/hooks/useClickOutside";
+import ConfirmModal from "@/components/ConfirmModal";
 
 
 const page = () => {
+  // confirm modal
+  const [confModalOpen, setconfModalOpen] = useState(false)
+  const [confModalTitle, setConfModalTitle] = useState('')
+  const [confNextFunc, setConfNextFunc] = useState(() => { })
+  // 
+
+  const handleSend = () => {
+    console.log('hi')
+  }
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -57,11 +68,17 @@ const page = () => {
             </div>
           </div>
           <div className=" mt-7 max-w-[350px] w-full ">
-            <button className=" bg-[#EE6093]  w-full py-2 rounded-lg text-white font-semibold">
+            <button onClick={() => {
+              setConfNextFunc(() => handleSend)
+              setConfModalTitle('Are you sure to remove this agency?');
+              setconfModalOpen(true)
+            }} className=" bg-[#EE6093]  w-full py-2 rounded-lg text-white font-semibold">
               Send
             </button>
           </div>
         </div>
+        <ConfirmModal open={confModalOpen} setOpen={setconfModalOpen} title={confModalTitle} nextFunc={confNextFunc} />
+
       </div>
     </ThemeProvider>
   );
