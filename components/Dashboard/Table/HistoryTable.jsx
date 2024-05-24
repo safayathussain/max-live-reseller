@@ -59,6 +59,7 @@ export default function HistoryTable() {
 
     ];
     const [users, setUsers] = useState([]);
+    const [paginationData, setPaginationData] = useState({})
     const [searchTerm, setSearchTerm] = useState("");
     const [sortBy, setSortBy] = useState(null);
     const [sortOrder, setSortOrder] = useState("asc");
@@ -70,6 +71,7 @@ export default function HistoryTable() {
         const loadData = async () => {
             const { data } = await FetchApi({ url: `user/getAllUser?page=${currentPage}&limit=5` })
             setUsers(data?.users?.users)
+            setPaginationData(data?.users?.pagination)
         }
         loadData()
     }, [currentPage])
@@ -114,8 +116,8 @@ export default function HistoryTable() {
     }
 
     // Pagination
-    const showingText = `Showing ${(currentPage - 1) * itemsPerPage + 1} to ${currentPage * itemsPerPage
-    } of ${filteredusers.length}`;
+    const showingText = `Showing ${(currentPage - 1) * itemsPerPage + 1} to ${(currentPage * itemsPerPage) < paginationData?.totalCount ? (currentPage * itemsPerPage) : paginationData?.totalCount} of ${paginationData?.totalCount}`;
+
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
@@ -313,10 +315,10 @@ export default function HistoryTable() {
                                     {currentPage}
                                 </button>
                                 {
-                                    currentPage !== Math.ceil(users.length / itemsPerPage) &&
+                                    currentPage !== Number(paginationData?.totalPages) &&
                                     <button
                                         disabled={
-                                            currentPage === Math.ceil(users.length / itemsPerPage)
+                                            currentPage === Number(paginationData?.totalPages)
                                         }
                                         onClick={() => paginate(currentPage + 1)}
                                         className={`py-2 px-4  bg-white text-gray-700 text-xs sm:text-sm hover:!bg-gray-50 focus:outline-none `}
@@ -332,13 +334,13 @@ export default function HistoryTable() {
                                 <button
                                     className={`py-2 px-4  bg-white text-gray-700 text-xs sm:text-sm hover:bg-gray-100 focus:outline-none `}
                                 >
-                                    {Math.ceil(users.length / itemsPerPage)}
+                                    {Number(paginationData?.totalPages)}
                                 </button>
                                 <button
                                     className="py-2 px-4 text-gray-700 bg-gray-100 text-xs sm:text-sm focus:outline-none"
                                     onClick={() => paginate(currentPage + 1)}
                                     disabled={
-                                        currentPage === Math.ceil(users.length / itemsPerPage)
+                                        currentPage === Number(paginationData?.totalPages)
                                     }
                                 >
                                     &#x2192;
