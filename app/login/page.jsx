@@ -1,4 +1,4 @@
-// 'use client'
+'use client'
 import Image from "next/image";
 import Link from "next/link";
 import logo from '@/public/logo.svg'
@@ -7,23 +7,28 @@ import { setAuth } from "@/redux/slices/AuthSlice";
 // import { useEffect } from "react";
 import axios from "axios";
 import { FetchApi } from "@/utils/FetchApi";
+import { useRouter } from "next/navigation";
+import { loginUser } from "@/utils/functions";
 
 
-const page = async () => {
-  // const auth = useSelector((state) => state.auth)
-  // const dispatch = useDispatch()
-  const handleSubmit = (e) => {
+const page = () => {
 
+  const router = useRouter()
+  const auth = useSelector(state => state.auth.user)
+  if (auth.role === 'HO') return router.push('/dashboard/user-management')
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value
+    const password = e.target.pass.value
+    await loginUser(email, password, () => router.push('/dashboard/user-management'))
+    console.log(email, password)
   }
-  const callbackFunc =  () => {
-    console.log('hi')
-  }
-  const url = '/todos';
-  const {data, status} = await FetchApi({url, method: 'get', callback: callbackFunc})
-  console.log(data)
+
+  
+
   return (
     <div className="flex justify-center items-center h-screen">
-      <form className="bg-white mt-6 py-8 px-5 rounded-xl flex flex-col items-center w-96">
+      <form onSubmit={handleSubmit} className="bg-white mt-6 py-8 px-5 rounded-xl flex flex-col items-center w-96">
         <div className="flex justify-center mb-4">
           <Image src={logo} alt=""></Image>
         </div>
@@ -35,6 +40,7 @@ const page = async () => {
           <div className="relative w-full">
             <input
               type="email"
+              name="email"
               id="emailField"
               className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer"
               placeholder=" "
@@ -50,6 +56,7 @@ const page = async () => {
           <div className="relative w-full">
             <input
               type="password"
+              name="pass"
               id="passField"
               className="block font-medium focus:border-lightGray text-black px-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer"
               placeholder=" "

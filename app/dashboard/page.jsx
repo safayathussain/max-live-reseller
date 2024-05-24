@@ -1,29 +1,42 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import bills from "@/public/bills.svg";
 import transactions from "@/public/transactions.svg";
 import Image from "next/image";
 import { TextField, ThemeProvider } from "@mui/material";
 import { theme } from "@/utils/muiTheme";
-import useClickOutside from "@/hooks/useClickOutside";
 import ConfirmModal from "@/components/ConfirmModal";
 
+const Page = () => {
+  // State for confirm modal
+  const [confModalOpen, setConfModalOpen] = useState(false);
+  const [confModalTitle, setConfModalTitle] = useState('');
+  const [confNextFunc, setConfNextFunc] = useState(() => {});
 
-const page = () => {
-  // confirm modal
-  const [confModalOpen, setconfModalOpen] = useState(false)
-  const [confModalTitle, setConfModalTitle] = useState('')
-  const [confNextFunc, setConfNextFunc] = useState(() => { })
-  // 
+  // State for form fields
+  const [userId, setUserId] = useState('');
+  const [amount, setAmount] = useState('');
+  const [confirmAmount, setConfirmAmount] = useState('');
 
+  // State for button disabled status
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    // Disable the button if amount and confirm amount do not match or if both fields are empty
+    setIsButtonDisabled(amount !== confirmAmount || amount === '' || confirmAmount === '');
+  }, [amount, confirmAmount]);
+  
   const handleSend = () => {
-    console.log('hi')
-  }
+    console.log('User ID:', userId);
+    console.log('Amount:', amount);
+    console.log('Confirm Amount:', confirmAmount);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <div>
         <div className="flex justify-between flex-col md:flex-row gap-4">
-          <div className="bg-white flex px-8 py-4 rounded-xl  w-full">
+          <div className="bg-white flex px-8 py-4 rounded-xl w-full">
             <div className="flex items-center mr-4">
               <Image className="size-12" src={bills} alt=""></Image>
             </div>
@@ -34,7 +47,7 @@ const page = () => {
               <p className="text-3xl font-semibold text-[#5C2D95]">26,750</p>
             </div>
           </div>
-          <div className="bg-white flex px-8 py-4  rounded-xl w-full">
+          <div className="bg-white flex px-8 py-4 rounded-xl w-full">
             <div className="flex items-center mr-4">
               <Image className="size-12" src={transactions} alt=""></Image>
             </div>
@@ -53,35 +66,74 @@ const page = () => {
           <div className="flex flex-col max-w-[350px] w-full mt-8 gap-4">
             {/* userid */}
             <div className="relative w-full">
-              <input type="text" id="useridField" className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer" placeholder=" " />
-              <label htmlFor="useridField" className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">USER ID</label>
+              <input
+                type="text"
+                id="useridField"
+                className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
+                placeholder=" "
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+              />
+              <label
+                htmlFor="useridField"
+                className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+              >
+                USER ID
+              </label>
             </div>
             {/* amount */}
             <div className="relative w-full">
-              <input type="text" id="amountField" className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer" placeholder=" " />
-              <label htmlFor="amountField" className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">AMOUNT</label>
+              <input
+                type="text"
+                id="amountField"
+                className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
+                placeholder=" "
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+              <label
+                htmlFor="amountField"
+                className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+              >
+                AMOUNT
+              </label>
             </div>
             {/* confirm amount */}
             <div className="relative w-full">
-              <input type="text" id="confirmamountField" className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer" placeholder=" " />
-              <label htmlFor="confirmamountField" className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">CONFIRM AMOUNT</label>
+              <input
+                type="text"
+                id="confirmamountField"
+                className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
+                placeholder=" "
+                value={confirmAmount}
+                onChange={(e) => setConfirmAmount(e.target.value)}
+              />
+              <label
+                htmlFor="confirmamountField"
+                className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+              >
+                CONFIRM AMOUNT
+              </label>
             </div>
           </div>
-          <div className=" mt-7 max-w-[350px] w-full ">
-            <button onClick={() => {
-              setConfNextFunc(() => handleSend)
-              setConfModalTitle('Are you sure to remove this agency?');
-              setconfModalOpen(true)
-            }} className=" bg-[#EE6093]  w-full py-2 rounded-lg text-white font-semibold">
+          <div className="mt-7 max-w-[350px] w-full">
+            <button
+              onClick={() => {
+                setConfNextFunc(() => handleSend);
+                setConfModalTitle('Are you sure to remove this agency?');
+                setConfModalOpen(true);
+              }}
+              className={`bg-[#EE6093] w-full py-2 rounded-lg text-white font-semibold ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={isButtonDisabled}
+            >
               Send
             </button>
           </div>
         </div>
-        <ConfirmModal open={confModalOpen} setOpen={setconfModalOpen} title={confModalTitle} nextFunc={confNextFunc} />
-
+        <ConfirmModal open={confModalOpen} setOpen={setConfModalOpen} title={confModalTitle} nextFunc={confNextFunc} />
       </div>
     </ThemeProvider>
   );
 };
 
-export default page;
+export default Page;
