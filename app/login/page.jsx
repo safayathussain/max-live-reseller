@@ -9,6 +9,8 @@ import axios from "axios";
 import { FetchApi } from "@/utils/FetchApi";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/utils/functions";
+import { TextField } from "@mui/material";
+
 
 
 const page = () => {
@@ -37,6 +39,11 @@ const page = () => {
         </div>
         <div className="flex flex-col max-w-[350px] w-full mt-8 gap-4">
           {/* email */}
+          <div>
+            <TextField type="email"
+              name="email"
+              id="emailField" fullWidth label="Outlined" variant="outlined" color="secondary" />
+          </div>
           <div className="relative w-full">
             <input
               type="email"
