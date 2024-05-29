@@ -13,9 +13,8 @@ const DashboardLayout = ({ children }) => {
         <Navbar />
       </div>
       <div
-        className={`w-full h-full bg-black fixed z-20 top-0 left-0 opacity-45 ${
-          open ? "block" : "hidden"
-        }`}
+        className={`w-full h-full bg-black fixed z-20 top-0 left-0 opacity-45 ${open ? "block" : "hidden"
+          }`}
         onClick={() => setOpen(false)}
       ></div>
       <div
