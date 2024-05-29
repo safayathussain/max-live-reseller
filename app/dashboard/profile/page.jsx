@@ -7,7 +7,20 @@ import '@/styles/prime-react.css'
 import { PrimeReactProvider } from 'primereact/api';
 import { FileUpload } from 'primereact/fileupload';
 
+
 const page = () => {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [userId, setUserId] = useState('');
+  const [validity, setValidity] = useState('');
+  const handleSave = () => {
+    console.log('Agency Name:', name);
+    console.log('Country Name:', validity);
+  };
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handleNameChange = (e) => setName(e.target.value);
+  const handleUserIdChange = (e) => setUserId(e.target.value);
+  const handleValidityChange = (e) => setValidity(e.target.value);
   const [showUploadField, setShowUploadField] = useState(false)
   setTimeout(() => {
     setShowUploadField(true)
@@ -39,64 +52,85 @@ const page = () => {
                 <div className="relative w-full">
                   <input
                     type="email"
-                    id="useridField"
-                    className="block font-medium focus:border-lightGray text-black pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer"
+                    id="emailField"
+                    className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
+                    value={email}
+                    onChange={handleEmailChange}
+                    // ... (other props)
                     placeholder=" "
                   />
                   <label
-                    htmlFor="useridField"
-                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                    htmlFor="emailField"
+                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                  // ... (other props)
                   >
                     Your Email
                   </label>
                 </div>
                 <div className="relative w-full">
                   <input
-                    type="email"
-                    id="useridField"
-                    className="block font-medium focus:border-lightGray text-black pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer"
+                    type="text"
+                    id="nameField"
+                    className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
+                    value={name}
+                    onChange={handleNameChange}
+                    // ... (other props)
                     placeholder=" "
                   />
                   <label
-                    htmlFor="useridField"
-                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                    htmlFor="nameField"
+                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                  // ... (other props)
                   >
                     Your Name
                   </label>
+
                 </div>
                 <div className="relative w-full">
+
                   <input
-                    type="email"
-                    id="useridField"
-                    className="block font-medium focus:border-lightGray text-black pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer"
+                    type="text"
+                    id="userIdField"
+                    className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
+                    value={userId}
+                    onChange={handleUserIdChange}
+                    // ... (other props)
                     placeholder=" "
                   />
                   <label
-                    htmlFor="useridField"
-                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                    htmlFor="userIdField"
+                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                  // ... (other props)
                   >
                     Your Id
                   </label>
                 </div>
                 <div className="relative w-full">
                   <input
-                    type="email"
-                    id="useridField"
-                    className="block font-medium focus:border-lightGray text-black pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer"
+                    type="text"
+                    id="validityField"
+                    className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
+                    value={validity}
+                    onChange={handleValidityChange}
+                    // ... (other props)
                     placeholder=" "
                   />
                   <label
-                    htmlFor="useridField"
-                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                    htmlFor="validityField"
+                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                  // ... (other props)
                   >
                     Your Validity
                   </label>
                 </div>
-              </div>
-              <div className="mt-3 max-w-[350px] w-full flex justify-start">
-                <button className=" whitespace-nowrap bg-primary px-5 py-2 rounded-lg text-white font-semibold">
-                  Save Changes
-                </button>
+                <div className="mt-3 max-w-[350px] w-full flex justify-start">
+                  <button
+                    className="whitespace-nowrap bg-primary px-5 py-2 rounded-lg text-white font-semibold"
+                    onClick={handleSave}
+                  >
+                    Save Changes
+                  </button>
+                </div>
               </div>
             </div>
           </div>
