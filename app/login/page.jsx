@@ -26,7 +26,7 @@ const page = () => {
     console.log(email, password)
   }
 
-  
+
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -42,7 +42,12 @@ const page = () => {
           <div>
             <TextField type="email"
               name="email"
-              id="emailField" fullWidth label="Outlined" variant="outlined" color="secondary" />
+              id="emailField"
+              fullWidth
+              label="Outlined"
+              variant="outlined"
+             
+              color="primary" />
           </div>
           <div className="relative w-full">
             <input

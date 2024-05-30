@@ -1,5 +1,6 @@
 'use client'
 import { persistor, store } from '@/redux/store'
+import { theme } from '@/utils/muiTheme'
 import { ThemeProvider } from '@mui/material'
 import React from 'react'
 import { Provider } from 'react-redux'
@@ -10,10 +11,9 @@ const Providers = ({ children }) => {
         <div>
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
-
-                    {/* <ThemeProvider theme={theme}> */}
-                    {children}
-                    {/* </ThemeProvider> */}
+                    <ThemeProvider theme={theme}>
+                        {children}
+                    </ThemeProvider>
                 </PersistGate>
             </Provider>
         </div>
