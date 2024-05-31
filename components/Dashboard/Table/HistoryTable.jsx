@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import useClickOutside from "@/hooks/useClickOutside";
 import Modal from "@/components/Modal";
 import { FetchApi } from "@/utils/FetchApi";
+import TextInput from "@/components/TextInput";
 
 export default function HistoryTable() {
     const dummyusers = [
@@ -126,20 +127,8 @@ export default function HistoryTable() {
                 <div className="w-full md:w-1/2 py-1">
                     <form className="flex items-center">
                         <div className="relative w-full">
-                            <input
-                                type="email"
-                                id="emailField"
-                                className="block font-medium focus:border-lightGray text-black px-2.5 pb-2 pt-3 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 peer"
-                                placeholder=" "
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                            />
-                            <label
-                                htmlFor="emailField"
-                                className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                            >
-                                Search By id
-                            </label>
+                        <TextInput value={searchTerm}
+                                onChange={handleSearchChange} label={'Search By Id'} name={'Search'} id={'idSearch'} />
                         </div>
                     </form>
                 </div>

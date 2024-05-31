@@ -6,6 +6,7 @@ import { useState } from 'react';
 import '@/styles/prime-react.css'
 import { PrimeReactProvider } from 'primereact/api';
 import { FileUpload } from 'primereact/fileupload';
+import TextInput from '@/components/TextInput';
 
 
 const page = () => {
@@ -50,78 +51,16 @@ const page = () => {
             <div>
               <div className="flex flex-col  sm:min-w-[350px] w-full mt-4 gap-4">
                 <div className="relative w-full">
-                  <input
-                    type="email"
-                    id="emailField"
-                    className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
-                    value={email}
-                    onChange={handleEmailChange}
-                    // ... (other props)
-                    placeholder=" "
-                  />
-                  <label
-                    htmlFor="emailField"
-                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                  // ... (other props)
-                  >
-                    Your Email
-                  </label>
+                <TextInput label={'Your Email'} name={'Search'} id={'idSearch'} value={email} onChange={handleEmailChange} />
                 </div>
                 <div className="relative w-full">
-                  <input
-                    type="text"
-                    id="nameField"
-                    className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
-                    value={name}
-                    onChange={handleNameChange}
-                    // ... (other props)
-                    placeholder=" "
-                  />
-                  <label
-                    htmlFor="nameField"
-                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                  // ... (other props)
-                  >
-                    Your Name
-                  </label>
-
+                <TextInput label={'Your Name'} name={'Search'} id={'idSearch'} value={name} onChange={handleNameChange} />
                 </div>
                 <div className="relative w-full">
-
-                  <input
-                    type="text"
-                    id="userIdField"
-                    className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
-                    value={userId}
-                    onChange={handleUserIdChange}
-                    // ... (other props)
-                    placeholder=" "
-                  />
-                  <label
-                    htmlFor="userIdField"
-                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                  // ... (other props)
-                  >
-                    Your Id
-                  </label>
+                <TextInput label={'User Id'} name={'Search'} id={'idSearch'} value={userId} onChange={handleUserIdChange} />
                 </div>
                 <div className="relative w-full">
-                  <input
-                    type="text"
-                    id="validityField"
-                    className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
-                    value={validity}
-                    onChange={handleValidityChange}
-                    // ... (other props)
-                    placeholder=" "
-                  />
-                  <label
-                    htmlFor="validityField"
-                    className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                  // ... (other props)
-                  >
-                    Your Validity
-                  </label>
+                <TextInput label={'Validity'} name={'Search'} id={'idSearch'} value={validity} onChange={handleValidityChange} />
                 </div>
                 <div className="mt-3 max-w-[350px] w-full flex justify-start">
                   <button

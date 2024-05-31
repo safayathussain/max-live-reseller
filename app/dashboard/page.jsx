@@ -6,12 +6,13 @@ import Image from "next/image";
 import { TextField, ThemeProvider } from "@mui/material";
 import { theme } from "@/utils/muiTheme";
 import ConfirmModal from "@/components/ConfirmModal";
+import TextInput from "@/components/TextInput";
 
 const Page = () => {
   // State for confirm modal
   const [confModalOpen, setConfModalOpen] = useState(false);
   const [confModalTitle, setConfModalTitle] = useState('');
-  const [confNextFunc, setConfNextFunc] = useState(() => {});
+  const [confNextFunc, setConfNextFunc] = useState(() => { });
 
   // State for form fields
   const [userId, setUserId] = useState('');
@@ -25,7 +26,7 @@ const Page = () => {
     // Disable the button if amount and confirm amount do not match or if both fields are empty
     setIsButtonDisabled(amount !== confirmAmount || amount === '' || confirmAmount === '');
   }, [amount, confirmAmount]);
-  
+
   const handleSend = () => {
     console.log('User ID:', userId);
     console.log('Amount:', amount);
@@ -66,54 +67,17 @@ const Page = () => {
           <div className="flex flex-col max-w-[350px] w-full mt-8 gap-4">
             {/* userid */}
             <div className="relative w-full">
-              <input
-                type="text"
-                id="useridField"
-                className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
-                placeholder=" "
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-              />
-              <label
-                htmlFor="useridField"
-                className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-              >
-                USER ID
-              </label>
+            <TextInput label={'Email'} name={'Email'} id={'email'} />
             </div>
             {/* amount */}
             <div className="relative w-full">
-              <input
-                type="text"
-                id="amountField"
-                className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
-                placeholder=" "
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              />
-              <label
-                htmlFor="amountField"
-                className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-              >
-                AMOUNT
-              </label>
+            <TextInput value={amount}
+                onChange={(e) => setAmount(e.target.value)} label={'Amount'} name={'Amount'} id={'amount'} />
             </div>
             {/* confirm amount */}
             <div className="relative w-full">
-              <input
-                type="text"
-                id="confirmamountField"
-                className="block font-medium focus:border-lightGray text-black px-2.5 pb-2.5 pt-4 w-full bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 peer"
-                placeholder=" "
-                value={confirmAmount}
-                onChange={(e) => setConfirmAmount(e.target.value)}
-              />
-              <label
-                htmlFor="confirmamountField"
-                className="text-sm absolute text-lightGray duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-lightGray peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-              >
-                CONFIRM AMOUNT
-              </label>
+            <TextInput value={confirmAmount}
+                onChange={(e) => setConfirmAmount(e.target.value)} label={'Confirm Amount'} name={'Confirm Amount'} id={'confirmAmount'} />
             </div>
           </div>
           <div className="mt-7 max-w-[350px] w-full">
