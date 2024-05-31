@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { HiMenu } from 'react-icons/hi';
 import logo from '@/public/logo.svg'
 import { usePathname } from 'next/navigation';
-import { capitalizeAllWords } from '@/utils/functions';
+import { capitalizeAllWords, logoutUser } from '@/utils/functions';
 import Link from 'next/link';
 
 const Navbar = ({ open, setOpen }) => {
@@ -26,7 +26,7 @@ const Navbar = ({ open, setOpen }) => {
                         <Image className='rounded-full  size-10 md:size-[64px]' alt='' src={logo} width={64} height={64}></Image>
                     </Link>
                     <div>
-                        <button className='rounded-full hidden lg:block bg-white border border-error text-error px-2 py-1 md:px-4 md:py-2 text-xxs whitespace-nowrap md:text-sm font-medium'>
+                        <button onClick={logoutUser} className='rounded-full hidden lg:block bg-white border border-error text-error px-2 py-1 md:px-4 md:py-2 text-xxs whitespace-nowrap md:text-sm font-medium'>
                             Log Out
                         </button>
                     </div>
