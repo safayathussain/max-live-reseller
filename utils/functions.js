@@ -1,5 +1,6 @@
 import { store } from "@/redux/store";
 import { FetchApi } from "./FetchApi";
+import { setAuth } from "@/redux/slices/AuthSlice";
 
 export function capitalizeAllWords(str) {
   const words = str.split(' ');
@@ -17,4 +18,17 @@ export const loginUser = async (email, password, func) => {
 }
 export const logoutUser = () => {
   store.dispatch(setAuth({}))
+  window.location = '/login'
+}
+
+export const getAuth = () => {
+  const auth = store.getState().auth?.user
+  if (auth?.accessToken) {
+    const data = jwtDecode(auth?.accessToken || '')
+    return data.user
+  } else if (auth.role === 'HO') {
+    return auth
+  } else {
+    return {}
+  }
 }

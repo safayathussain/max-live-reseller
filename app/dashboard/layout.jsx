@@ -1,11 +1,15 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
+import { getAuth } from "@/utils/functions";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const DashboardLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
-
+  const router = useRouter()
+  const authData = getAuth()
+  // if (!authData || authData.role !== 'HO') return router.push('/login')
   return (
     <div className="min-h-screen">
       <div className="flex items-center bg-primary">
