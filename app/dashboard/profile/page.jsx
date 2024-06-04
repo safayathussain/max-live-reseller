@@ -30,7 +30,7 @@ const page = () => {
   return (
     <PrimeReactProvider>
       <div className="bg-white w-full min-h-[calc(100vh-200px)] flex items-center justify-center rounded-lg ">
-        <div className='flex justify-center px-8 py-4 text-center'>
+        <div className='flex justify-center px-8 py-4'>
           <div className='flex flex-col items-center gap-4'>
             <p className='text-xl text-grayColor'>Your Profile</p>
             <div className='relative w-max text-white'>

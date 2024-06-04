@@ -117,7 +117,7 @@ export default function HistoryTable() {
     }
 
     // Pagination
-    const showingText = `Showing ${(currentPage - 1) * itemsPerPage + 1} to ${(currentPage * itemsPerPage) < paginationData?.totalCount ? (currentPage * itemsPerPage) : paginationData?.totalCount} of ${paginationData?.totalCount}`;
+    const showingText = filteredusers.length === 0 ? '' : `Showing ${(currentPage - 1) * itemsPerPage + 1} to ${(currentPage * itemsPerPage) < paginationData?.totalCount ? (currentPage * itemsPerPage) : paginationData?.totalCount} of ${paginationData?.totalCount}`;
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -128,7 +128,7 @@ export default function HistoryTable() {
                     <form className="flex items-center">
                         <div className="relative w-full">
                         <TextInput value={searchTerm}
-                                onChange={handleSearchChange} label={'Search By Id'} name={'Search'} id={'idSearch'} />
+                                onChange={handleSearchChange} placeholder={'Search By Id'} name={'Search'} id={'idSearch'} />
                         </div>
                     </form>
                 </div>
@@ -137,123 +137,40 @@ export default function HistoryTable() {
                 <table className="w-full text-sm text-left text-gray-500 ">
                     <thead className="text-xs text-lightGray uppercase  bg-white">
                         <tr>
-                            {/* <th className="pl-4 py-3 cursor-pointer">
-                    <input type="checkbox" name="" id="" />
-                  </th> */}
-                            <th
-                                className="px-4 py-3 cursor-pointer "
-                                onClick={() => handleSort("sl")}
-                            >
-                                <div>
-                                    <span className=" flex items-center font-medium">
-                                        Sl
-                                        <svg
-                                            width="15"
-                                            height="10"
-                                            viewBox="0 0 9 5"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="ml-1"
-                                        >
-                                            <path
-                                                d="M5.14727 4.15516C4.75412 4.49564 4.17057 4.49564 3.77743 4.15516L1.14728 1.87738C0.415013 1.24323 0.863505 0.0402738 1.8322 0.0402738L7.0925 0.0402743C8.06119 0.0402744 8.50968 1.24323 7.77742 1.87739L5.14727 4.15516Z"
-                                                fill="#B5BFC9"
-                                            />
-                                        </svg>
-                                    </span>
-                                </div>
+                            <th className="px-4 py-3 cursor-pointer ">
+                                <span className=" flex items-center font-medium">
+                                    Sl
+                                </span>
                             </th>
-                            <th
-                                className="px-4 py-3 cursor-pointer "
-                                onClick={() => handleSort("fullName")}
-                            >
-                                <div>
-                                    <span className=" flex items-center font-medium">
-                                        Full Name
-                                        <svg
-                                            width="15"
-                                            height="10"
-                                            viewBox="0 0 9 5"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="ml-1"
-                                        >
-                                            <path
-                                                d="M5.14727 4.15516C4.75412 4.49564 4.17057 4.49564 3.77743 4.15516L1.14728 1.87738C0.415013 1.24323 0.863505 0.0402738 1.8322 0.0402738L7.0925 0.0402743C8.06119 0.0402744 8.50968 1.24323 7.77742 1.87739L5.14727 4.15516Z"
-                                                fill="#B5BFC9"
-                                            />
-                                        </svg>
-                                    </span>
-                                </div>
+                            <th className="px-4 py-3 cursor-pointer ">
+                                <span className=" flex items-center font-medium">
+                                    Full Name
+                                </span>
                             </th>
-                            <th
-                                className="px-4 py-3 cursor-pointer"
-                                onClick={() => handleSort("email")}
-                            >
+                            <th className="px-4 py-3 cursor-pointer">
                                 <span className=" flex items-center font-medium">
                                     Email Address
-                                    <svg
-                                        width="15"
-                                        height="10"
-                                        viewBox="0 0 9 5"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="ml-1"
-                                    >
-                                        <path
-                                            d="M5.14727 4.15516C4.75412 4.49564 4.17057 4.49564 3.77743 4.15516L1.14728 1.87738C0.415013 1.24323 0.863505 0.0402738 1.8322 0.0402738L7.0925 0.0402743C8.06119 0.0402744 8.50968 1.24323 7.77742 1.87739L5.14727 4.15516Z"
-                                            fill="#B5BFC9"
-                                        />
-                                    </svg>
                                 </span>
                             </th>
-                            <th
-                                className="px-4 py-3 cursor-pointer"
-                                onClick={() => handleSort("date")}
-                            >
+                            <th className="px-4 py-3 cursor-pointer">
                                 <span className=" flex items-center font-medium">
                                     Date
-                                    <svg
-                                        width="15"
-                                        height="10"
-                                        viewBox="0 0 9 5"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="ml-1"
-                                    >
-                                        <path
-                                            d="M5.14727 4.15516C4.75412 4.49564 4.17057 4.49564 3.77743 4.15516L1.14728 1.87738C0.415013 1.24323 0.863505 0.0402738 1.8322 0.0402738L7.0925 0.0402743C8.06119 0.0402744 8.50968 1.24323 7.77742 1.87739L5.14727 4.15516Z"
-                                            fill="#B5BFC9"
-                                        />
-                                    </svg>
                                 </span>
                             </th>
-                            <th
-                                className="px-4 py-3 cursor-pointer"
-                                onClick={() => handleSort("beans")}
-                            >
+                            <th className="px-4 py-3 cursor-pointer">
                                 <span className=" flex items-center font-medium">
                                     Beans
-                                    <svg
-                                        width="15"
-                                        height="10"
-                                        viewBox="0 0 9 5"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="ml-1"
-                                    >
-                                        <path
-                                            d="M5.14727 4.15516C4.75412 4.49564 4.17057 4.49564 3.77743 4.15516L1.14728 1.87738C0.415013 1.24323 0.863505 0.0402738 1.8322 0.0402738L7.0925 0.0402743C8.06119 0.0402744 8.50968 1.24323 7.77742 1.87739L5.14727 4.15516Z"
-                                            fill="#B5BFC9"
-                                        />
-                                    </svg>
                                 </span>
                             </th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredusers.map((user, i) => (
+                        {filteredusers.length === 0? 
+                        <tr>
+                            <td colSpan={5} className="text-center text-xl font-semibold py-12">No data found</td>
+                        </tr>
+                        :
+                        filteredusers.map((user, i) => (
                             <tr key={user._id} className="border-b whitespace-nowrap">
                                 <td className="px-4 py-4">{i + 1}</td>
                                 <td onClick={() => setOpen(true)} className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
@@ -264,11 +181,13 @@ export default function HistoryTable() {
                                 <td className="px-4 py-4">{user.beans}</td>
 
                             </tr>
-                        ))}
+                        ))
+                        }
                     </tbody>
                 </table>
             </div>
             {/* page footer */}
+            {filteredusers.length > 0 &&
             <div className="flex flex-col gap-3 md:flex-row justify-between my-10 md:px-5">
                 {/* page number */}
                 <div className="flex justify-start items-center font-semibold">
@@ -338,7 +257,7 @@ export default function HistoryTable() {
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div>}
             <Modal open={open} >
                 <form ref={ref} className=''>
                     <div className="px-7 py-9 bg-white rounded-md  max-w-[400px] w-full  border-4 border-primary">
@@ -381,3 +300,5 @@ export default function HistoryTable() {
 
     );
 }
+
+
