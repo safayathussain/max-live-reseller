@@ -59,7 +59,7 @@ export default function HistoryTable() {
     }
 
     // Pagination
-    const showingText = filteredusers.length === 0 ? '' : `Showing ${(currentPage - 1) * itemsPerPage + 1} to ${(currentPage * itemsPerPage) < paginationData?.totalCount ? (currentPage * itemsPerPage) : paginationData?.totalCount} of ${paginationData?.totalCount}`;
+    const showingText = `Showing ${(currentPage - 1) * itemsPerPage + 1} to ${((currentPage - 1) * itemsPerPage) < Math.ceil(searchedUsers.length / itemsPerPage) ? (currentPage * itemsPerPage) : searchedUsers.length} of ${searchedUsers.length}`;
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -114,12 +114,7 @@ export default function HistoryTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredusers.length === 0? 
-                        <tr>
-                            <td colSpan={5} className="text-center text-xl font-semibold py-12">No data found</td>
-                        </tr>
-                        :
-                        filteredusers.map((user, i) => (
+                        {currentUsers.map((user, i) => (
                             <tr key={user._id} className="border-b whitespace-nowrap">
                                 <td className="px-4 py-4">{i + 1}</td>
                                 <td onClick={() => setOpen(true)} className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
@@ -130,8 +125,7 @@ export default function HistoryTable() {
                                 <td className="px-4 py-4">{user.beans}</td>
 
                             </tr>
-                        ))
-                        }
+                        ))}
                     </tbody>
                 </table>
             </div>

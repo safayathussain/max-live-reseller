@@ -38,11 +38,7 @@ const page = () => {
         <div className="text-center">
           <p className="text-xl font-semibold text-[#5C2D95]">Please Login</p>
         </div>
-<<<<<<< HEAD
-        <div className="flex flex-col max-w-[350px] w-full mt-8 gap-2">
-=======
         <div className="flex flex-col max-w-[350px] w-full mt-8 gap-3">
->>>>>>> 551fc08e4e936facc8878ed347281b2858bc7c25
           {/* email */}
           <div className="relative w-full">
             <TextInput label={'Email'} name={'email'} id={'emailField'} />
