@@ -8,83 +8,29 @@ import { FetchApi } from "@/utils/FetchApi";
 import TextInput from "@/components/TextInput";
 
 export default function HistoryTable() {
-    const dummyusers = [
-        {
-            sl: 1,
-            id: 1,
-            fullName: "Safayat Hussain",
-            email: "safayat@gmail.com",
-            date: "12 May, 2023",
-            beans: 1203,
-        },
-        {
-            sl: 2,
-            id: 1,
-            fullName: "Safayat Hussain",
-            email: "safayat@gmail.com",
-            date: "12 May, 2023",
-            beans: 1203,
-        },
-        {
-            sl: 3,
-            id: 1,
-            fullName: "Safayat Hussain",
-            email: "safayat@gmail.com",
-            date: "12 May, 2023",
-            beans: 1203,
-        },
-        {
-            sl: 4,
-            id: 1,
-            fullName: "Safayat dsa Hussain",
-            email: "safayat@gmail.com",
-            date: "12 May, 2023",
-            beans: 1203,
-        },
-        {
-            sl: 5,
-            id: 1,
-            fullName: "Safayat dsa Hussain",
-            email: "safayat@gmail.com",
-            date: "12 May, 2023",
-            beans: 1203,
-        },
-        {
-            sl: 6,
-            id: 1,
-            fullName: "Safayat dsa Hussain",
-            email: "safayat@gmail.com",
-            date: "12 May, 2023",
-            beans: 1203,
-        },
-
-    ];
+    
     const [users, setUsers] = useState([]);
-    const [paginationData, setPaginationData] = useState({})
     const [searchTerm, setSearchTerm] = useState("");
     const [sortBy, setSortBy] = useState(null);
     const [sortOrder, setSortOrder] = useState("asc");
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
     const [open, setOpen] = useState(false);
-
-    useEffect(() => {
-        const loadData = async () => {
-            const { data } = await FetchApi({ url: `user/getAllUser?page=${currentPage}&limit=5` })
-            setUsers(data?.users?.users)
-            setPaginationData(data?.users?.pagination)
-        }
-        loadData()
-    }, [currentPage])
+    
     const ref = useRef(null);
     useClickOutside(ref, () => {
         setOpen(false);
     });
-
-    // Function to handle search input
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    };
+    const loadData = async () => {
+        const { data } = await FetchApi({ url: `user/getAllUser` })
+        setUsers(data?.users.users)
+    }
+    useEffect(() => {
+        loadData()
+    }, [])
+    let searchedUsers = users.filter((user) =>
+        user._id.includes(searchTerm)
+    );
 
     // Function to handle sorting
     const handleSort = (key) => {
@@ -98,12 +44,8 @@ export default function HistoryTable() {
         }
     };
 
-    let filteredusers = users.filter((user) =>
-        user?._id?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
     if (sortBy) {
-        filteredusers = filteredusers.sort((a, b) => {
+        searchedUsers = searchedUsers.sort((a, b) => {
             const compareA = a[sortBy];
             const compareB = b[sortBy];
             if (compareA < compareB) {
@@ -113,7 +55,7 @@ export default function HistoryTable() {
                 return sortOrder === "asc" ? 1 : -1;
             }
             return 0;
-        });
+        })
     }
 
     // Pagination
@@ -121,14 +63,21 @@ export default function HistoryTable() {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentUsers = searchedUsers.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
+
     return (
         <div className=" overflow-hidden">
             <div className="flex flex-col md:flex-row items-center justify-between  pb-4">
                 <div className="w-full md:w-1/2 py-1">
                     <form className="flex items-center">
                         <div className="relative w-full">
-                        <TextInput value={searchTerm}
-                                onChange={handleSearchChange} placeholder={'Search By Id'} name={'Search'} id={'idSearch'} />
+                        <TextInput onChange={(e) => setSearchTerm(e.target.value)} placeholder={'Search By Id'} name={'Search'} id={'idSearch'} />
+
                         </div>
                     </form>
                 </div>
@@ -223,10 +172,10 @@ export default function HistoryTable() {
                                     {currentPage}
                                 </button>
                                 {
-                                    currentPage !== Number(paginationData?.totalPages) &&
+                                    currentPage !== Math.ceil(searchedUsers.length / itemsPerPage) &&
                                     <button
                                         disabled={
-                                            currentPage === Number(paginationData?.totalPages)
+                                            currentPage === Math.ceil(searchedUsers.length / itemsPerPage)
                                         }
                                         onClick={() => paginate(currentPage + 1)}
                                         className={`py-2 px-4  bg-white text-gray-700 text-xs sm:text-sm hover:!bg-gray-50 focus:outline-none `}
@@ -242,13 +191,13 @@ export default function HistoryTable() {
                                 <button
                                     className={`py-2 px-4  bg-white text-gray-700 text-xs sm:text-sm hover:bg-gray-100 focus:outline-none `}
                                 >
-                                    {Number(paginationData?.totalPages)}
+                                    {Math.ceil(searchedUsers.length / itemsPerPage)}
                                 </button>
                                 <button
                                     className="py-2 px-4 text-gray-700 bg-gray-100 text-xs sm:text-sm focus:outline-none"
                                     onClick={() => paginate(currentPage + 1)}
                                     disabled={
-                                        currentPage === Number(paginationData?.totalPages)
+                                        currentPage === Math.ceil(searchedUsers.length / itemsPerPage)
                                     }
                                 >
                                     &#x2192;
