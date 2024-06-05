@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import '../app/globals.css'
 import { logoutUser } from '@/utils/functions';
+import { CgProfile } from "react-icons/cg";
 
 
 const Sidebar = ({ open, setOpen }) => {
@@ -63,6 +64,13 @@ const Sidebar = ({ open, setOpen }) => {
             </svg>,
             link: '/dashboard/seasons'
         },
+        {
+            title: "Profile",
+            icon: (
+              <CgProfile />
+            ),
+            link: "/dashboard/profile",
+          }
 
     ]
     return (
