@@ -8,7 +8,7 @@ import { setAuth } from "@/redux/slices/AuthSlice";
 import axios from "axios";
 import { FetchApi } from "@/utils/FetchApi";
 import { useRouter } from "next/navigation";
-import { loginUser } from "@/utils/functions";
+import { getAuth, loginUser } from "@/utils/functions";
 import { TextField } from "@mui/material";
 import TextInput from "@/components/TextInput";
 
@@ -17,14 +17,14 @@ import TextInput from "@/components/TextInput";
 const page = () => {
 
   const router = useRouter()
-  const auth = useSelector(state => state.auth.user)
-  if (auth.role === 'HO') return router.push('/dashboard/user-management')
+  const auth = getAuth()
+  console.log(auth)
+  if (auth?.role === 'BR') return router.push('/dashboard/')
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value
     const password = e.target.pass.value
-    await loginUser(email, password, () => router.push('/dashboard/user-management'))
-    console.log(email, password)
+    await loginUser(email, password, () => router.push('/dashboard/'))
   }
 
 
@@ -45,7 +45,7 @@ const page = () => {
           </div>
           {/* password */}
           <div className="relative w-full">
-            <TextInput label={'Password'} name={'password'} id={'passwordField'} />
+            <TextInput label={'Password'} name={'password'} id={'pass'} />
           </div>
           <div className="flex justify-end">
             <Link className="text-xs text-primary underline" href="/reset-password">Reset Password?</Link>
