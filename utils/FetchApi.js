@@ -2,15 +2,16 @@ import { store } from "@/redux/store";
 import axios from "axios"
 import toast from "react-hot-toast";
 
+let ContentType = 'application/json';
 
-// const instance = axios.create({
-//     baseURL: process.env.NEXT_PUBLIC_BASE_API, // Set a base URL for all requests
-//     // timeout: 5000, // Set a timeout for requests (in milliseconds)
-//     headers: {
-//         'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Authorization header
-//         'Content-Type': 'application/json', 
-//     }
-// });
+const instance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_API, // Set a base URL for all requests
+    // timeout: 5000, // Set a timeout for requests (in milliseconds)
+    headers: {
+        'Authorization': `Bearer ${store.getState().auth?.user?.accessToken}`, // Authorization header
+        // 'Content-Type': ContentType,
+    }
+});
 
 
 export const FetchApi = async ({
@@ -18,33 +19,12 @@ export const FetchApi = async ({
     url = '',
     data = {},
     callback = () => { },
-    token = ''
+    isToast = false
 }) => {
-    let instance;
-    if (url !== 'admin/signInAllUsers') {
-        instance = axios.create({
-            baseURL: process.env.NEXT_PUBLIC_BASE_API, // Set a base URL for all requests
-            headers: {
-                'Authorization': `Bearer ${store.getState().auth?.user?.sanitizedUser?.accessToken || ''}`, // Authorization header
-                // 'Content-Type': 'application/json',
-            }
-        });
-        
-    } else {
-        instance = axios.create({
-            baseURL: process.env.NEXT_PUBLIC_BASE_API, // Set a base URL for all requests
-            headers: {
-                // 'Content-Type': 'application/json',
-            }
-        });
-
-
-    }
-
     try {
         let response;
         if (method === 'get') {
-            response = await instance.get(url, data);
+            response = await instance.get(url);
         } else if (method === 'post') {
             response = await instance.post(url, data);
         } else if (method === 'put') {
@@ -56,12 +36,14 @@ export const FetchApi = async ({
         }
         callback()
         const res = { data: response?.data, status: response?.status, }
+        if(isToast){
+            toast.success(res.data.message)
+        }
         return res
     } catch (error) {
         console.error('Request failed:', error);
-        toast.error(`${(error?.response?.data?.message || error?.response?.data?.error) || 'Something went wrong'}`)
-
-        return error.response?.data
+        toast.error(`${(error.response?.data?.message || error.response?.data?.error) || 'Something went wrong'}`)
+        // return error.response?.data
         // throw error;
     }
 }

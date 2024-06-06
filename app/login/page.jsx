@@ -18,16 +18,13 @@ const page = () => {
 
   const router = useRouter()
   const auth = getAuth()
-  console.log(auth)
   if (auth?.role === 'BR') return router.push('/dashboard/')
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value
     const password = e.target.pass.value
-    await loginUser(email, password, () => router.push('/dashboard/'))
+    await loginUser(email, password)
   }
-
-
 
   return (
     <div className="flex justify-center items-center h-screen">

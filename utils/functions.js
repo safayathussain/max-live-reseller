@@ -1,6 +1,7 @@
 import { store } from "@/redux/store";
 import { FetchApi } from "./FetchApi";
 import { setAuth } from "@/redux/slices/AuthSlice";
+import toast from "react-hot-toast";
 
 export function capitalizeAllWords(str) {
   const words = str.split(' ');
@@ -8,10 +9,11 @@ export function capitalizeAllWords(str) {
   return capitalizedWords.join(' ');
 }
 export const getAuth = () => {
-  const auth = store.getState().auth;
+  const auth = store.getState().auth.user;
+  console.log(auth)
   if (auth.user?.role === 'BR') {
+    // console.log(auth)
     return auth.user
-    console.log(auth)
   } else if (auth?.accessToken) {
     const data = jwtDecode(auth?.accessToken || '')
     return data.user
@@ -21,10 +23,13 @@ export const getAuth = () => {
 }
 export const loginUser = async (email, password, func) => {
   const res = await FetchApi({ url: 'admin/signInAllUsers', method: 'post', data: { email, password }, callback: func })
-  console.log(res)
   if (res.status === 200) {
-    console.log(res?.data.user)
-    store.dispatch(setAuth(res?.data))
+    if(res.data.user.role === 'BR'){
+      store.dispatch(setAuth(res?.data))
+      window.location = '/dashboard'
+    }else {
+      toast.error('Invalid email or password')
+    }
 
   }
 

@@ -14,7 +14,7 @@ import { store } from '@/redux/store';
 const Page = () => {
   const dispatch = useDispatch()
   const authState = getAuth();
-
+  const authRstate = useSelector(state => state.auth.user)
   const [profileData, setProfileData] = useState({
     firstName: authState.firstName || '',
     lastName: authState.lastName || '',
@@ -23,13 +23,11 @@ const Page = () => {
   });
   console.log(authState)
   const updateUser = async (formData) => {
-    const response = await FetchApi({ url: `/user/updateUserInfo/${authState._id}`, method: 'put', data: formData, callback: () => {
-      toast.success('Profile updated successfully')
-    }});
-    console.log(response.data)
+    const response = await FetchApi({
+      url: `/user/updateUserInfo/${authState._id}`, method: 'put', data: formData, isToast: true,});
     const newUser = {
-      ...authState,
-      agency: response.data.editAgency
+      ...authRstate,
+      user: response.data.updatedUser
     }
     dispatch(setAuth(newUser))
   }
@@ -48,7 +46,6 @@ const Page = () => {
     e.preventDefault();
     const formData = new FormData(formRef.current);
     updateUser(formData);
-    console.log(formData);
   };
 
   return (
@@ -75,23 +72,23 @@ const Page = () => {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 sm:min-w-[380px] w-full mt-4 gap-4">
                 {Object.keys(profileData).map((key) => (
-                   <div className="relative w-full" key={key}>
-                   <TextInput
-                     label={capitalizeAllWords(key.replace(/([A-Z])/g, ' $1').trim())}
-                     value={profileData[key]}
-                     name={key}
-                     id={`id${key}`}
-                     onChange={handleChange}
-                     disabled={['email', 'agencyId', '_id'].includes(key)}
-                   />
-                 </div>
+                  <div className="relative w-full" key={key}>
+                    <TextInput
+                      label={capitalizeAllWords(key.replace(/([A-Z])/g, ' $1').trim())}
+                      value={profileData[key]}
+                      name={key}
+                      id={`id${key}`}
+                      onChange={handleChange}
+                      disabled={['email', 'agencyId', '_id'].includes(key)}
+                    />
+                  </div>
                 ))}
               </div>
               <div className="mt-3 max-w-[350px] w-full flex justify-center items-center">
-                  <button type='submit' className="whitespace-nowrap bg-primary px-8 py-2 rounded-lg text-white font-semibold">
-                    Save Changes
-                  </button>
-                </div>
+                <button type='submit' className="whitespace-nowrap bg-primary px-8 py-2 rounded-lg text-white font-semibold">
+                  Save Changes
+                </button>
+              </div>
             </div>
           </div>
         </div>
