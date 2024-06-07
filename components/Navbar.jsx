@@ -5,10 +5,12 @@ import React, { useEffect, useState } from 'react'
 import { HiMenu } from 'react-icons/hi';
 import logo from '@/public/logo.svg'
 import { usePathname } from 'next/navigation';
-import { capitalizeAllWords, logoutUser } from '@/utils/functions';
+import { capitalizeAllWords, getAuth, logoutUser } from '@/utils/functions';
 import Link from 'next/link';
 
 const Navbar = ({ open, setOpen }) => {
+    const auth = getAuth();
+    console.log(auth)
     const pathname = usePathname()
     const pageTitle = capitalizeAllWords((pathname?.split('/')[2])?.replace('-', ' ') || 'dashboard')
     return (
@@ -19,8 +21,8 @@ const Navbar = ({ open, setOpen }) => {
                 </p>
                 <div className='flex items-center gap-1 md:gap-3 min-w-[45vw] justify-end'>
                     <div className=' flex flex-col items-end gap-1'>
-                        <p className='font-medium leading-none sm:leading-4 text-white text-sm sm:text-base'>Safayat Hussain</p>
-                        <p className=' font-light text-xs whitespace-nowrap md:text-sm  text-white text-end leading-tight md:leading-3'> Administrator</p>
+                        <p className='font-medium leading-none sm:leading-4 text-white text-sm sm:text-base'>{auth?.firstName + " " + auth?.lastName}</p>
+                        <p className=' font-light text-xs whitespace-nowrap md:text-sm  text-white text-end leading-tight md:leading-3'>Beans: {auth?.beans}</p>
                     </div>
                     <div>
                         <button onClick={logoutUser} className='rounded-full hidden lg:block bg-white border border-error text-error px-2 py-1 md:px-4 md:py-2 text-xxs whitespace-nowrap md:text-sm font-medium'>

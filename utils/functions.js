@@ -2,7 +2,7 @@ import { store } from "@/redux/store";
 import { FetchApi } from "./FetchApi";
 import { setAuth } from "@/redux/slices/AuthSlice";
 import toast from "react-hot-toast";
-
+import { jwtDecode } from "jwt-decode";
 export function capitalizeAllWords(str) {
   const words = str.split(' ');
   const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));

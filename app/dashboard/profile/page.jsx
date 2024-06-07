@@ -74,12 +74,12 @@ const Page = () => {
                 {Object.keys(profileData).map((key) => (
                   <div className="relative w-full" key={key}>
                     <TextInput
-                      label={capitalizeAllWords(key.replace(/([A-Z])/g, ' $1').trim())}
                       value={profileData[key]}
                       name={key}
                       id={`id${key}`}
                       onChange={handleChange}
                       disabled={['email', 'agencyId', '_id'].includes(key)}
+                      label={key === '_id' ? 'Id' : capitalizeAllWords(key.replace(/([A-Z])/g, ' $1').trim())}
                     />
                   </div>
                 ))}
