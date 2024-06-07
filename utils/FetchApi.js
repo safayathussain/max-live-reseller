@@ -4,14 +4,7 @@ import toast from "react-hot-toast";
 
 let ContentType = 'application/json';
 
-const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_API, // Set a base URL for all requests
-    // timeout: 5000, // Set a timeout for requests (in milliseconds)
-    headers: {
-        'Authorization': `Bearer ${store.getState().auth?.user?.accessToken}`, // Authorization header
-        // 'Content-Type': ContentType,
-    }
-});
+
 
 
 export const FetchApi = async ({
@@ -22,6 +15,14 @@ export const FetchApi = async ({
     isToast = false
 }) => {
     try {
+        const instance = axios.create({
+            baseURL: process.env.NEXT_PUBLIC_BASE_API, // Set a base URL for all requests
+            // timeout: 5000, // Set a timeout for requests (in milliseconds)
+            headers: {
+                'Authorization': `Bearer ${store.getState().auth?.user?.accessToken}`, // Authorization header
+                // 'Content-Type': ContentType,
+            }
+        });
         let response;
         if (method === 'get') {
             response = await instance.get(url);
@@ -36,7 +37,7 @@ export const FetchApi = async ({
         }
         callback()
         const res = { data: response?.data, status: response?.status, }
-        if(isToast){
+        if (isToast) {
             toast.success(res.data.message)
         }
         return res
