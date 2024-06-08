@@ -35,14 +35,14 @@ const Page = () => {
 
   const body = {
     recipientId: userId,
-    amount: amount,
+    amount: Number(amount),
     resellerId: auth?._id
   }
 
       const handleSend = async () => {
           const response = await FetchApi({
             url: `/bean/send-beans-to-allusers`,
-            method: 'post',
+            method: 'put',
             data: body,
             isToast: true,
           });
