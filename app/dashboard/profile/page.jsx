@@ -19,6 +19,13 @@ const Page = () => {
     firstName: authState.firstName || '',
     lastName: authState.lastName || '',
     email: authState.email || '',
+    country : authState.country || '',
+    vipStatus : authState.vipStatus || false,
+    vipLevel : authState.vipLevel || 0,
+    beans : authState.beans || 0,
+    coins : authState.coins || 0,
+    diamonds : authState.diamonds || 0,
+    stars : authState.stars || 0,
     _id: authState._id || '',
   });
   console.log(authState)
@@ -70,7 +77,7 @@ const Page = () => {
                   }
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 sm:min-w-[380px] w-full mt-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 sm:min-w-[470px] w-full mt-4 gap-4">
                 {Object.keys(profileData).map((key) => (
                   <div className="relative w-full" key={key}>
                     <TextInput
@@ -78,7 +85,7 @@ const Page = () => {
                       name={key}
                       id={`id${key}`}
                       onChange={handleChange}
-                      disabled={['email', 'agencyId', '_id'].includes(key)}
+                      disabled={!['firstName', 'lastName'].includes(key)}
                       label={key === '_id' ? 'Id' : capitalizeAllWords(key.replace(/([A-Z])/g, ' $1').trim())}
                     />
                   </div>

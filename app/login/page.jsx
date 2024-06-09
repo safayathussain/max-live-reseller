@@ -50,7 +50,7 @@ const page = () => {
         </div>
         <div className="mt-2 max-w-[350px] w-full ">
           <button className=" bg-primary  w-full py-2 rounded-lg text-white font-semibold">
-            Send
+            Login
           </button>
         </div>
       </form>
