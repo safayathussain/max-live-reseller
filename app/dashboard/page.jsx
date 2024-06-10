@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import bills from "@/public/bills.svg";
 import transactions from "@/public/transactions.svg";
 import Image from "next/image";
@@ -22,8 +22,8 @@ const Page = () => {
   const auth = getAuth();
 
 
-
-  const handleSend = async (e) => {
+  const ref = useRef();
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const { recipientId, amount, type } = e.target
     const body = {
@@ -39,7 +39,24 @@ const Page = () => {
       isToast: true,
     });
   }
+  const [searchedUsers, setSearchedUsers] = useState([]);
+    const [searchedUserId, setsearchedUserId] = useState('');
+    const [allUsers, setallUsers] = useState([])
+    const selectUser = (user) => {
+        ref.current.adId.value = user._id
+    }
+    useEffect(() => {
+        const loadData = async () => {
+            const { data } = await FetchApi({ url: `user/getAllUser` })
+            setallUsers(data?.users?.users.filter(user => user.role !== 'BR' && user.role !== 'AD' && user.role !== 'MP'));
+        }
+        loadData()
+    }, [])
 
+    useEffect(() => {
+        const arr = allUsers.filter(item => item._id.includes(searchedUserId))
+        setSearchedUsers(arr)
+    }, [searchedUserId, allUsers.length])
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -67,52 +84,54 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <form onSubmit={handleSend} className="bg-white mt-6 py-8 px-5 rounded-xl flex flex-col items-center">
-          <div className="text-center">
-            <p className="text-xl font-semibold text-[#5C2D95]">Transaction</p>
-          </div>
-          <div className="flex flex-col max-w-[350px] w-full mt-8 gap-3">
-            {/* userid */}
-            <div className="relative w-full">
-              <TextInput label={'Recipient ID'} name={'recipientId'} id={'recipientId'} />
-            </div>
-            {/* amount */}
-            <div className="relative w-full">
-              <TextInput
-                type="number"
-                label={'Amount'}
-                name={'amount'}
-                id={'amount'}
-              />
-            </div>
-            <SelectInput label={'Type'} name={'type'} options={[
-              {
-                name: 'Bean',
-                value: 'beans'
-              },
-              {
-                name: 'Coin',
-                value: 'coins'
-              },
-              {
-                name: 'Diamond',
-                value: 'diamonds'
-              },
-              {
-                name: 'Star',
-                value: 'stars'
-              },
-            ]} />
+        <section className="bg-gray-50 my-10  rounded-lg flex-col-reverse md:gap-10 md:flex-row flex justify-center items-center">
+                <form ref={ref} onSubmit={handleSubmit} className=" py-20">
+                    <p className='text-xl text-center mb-5 text-primary font-semibold'>Transaction</p>
+                    <div className='min-w-[350px] mx-auto w-min flex flex-col gap-3'>
+                        <TextInput label={'User ID'} name={'adId'} />
+                        <TextInput label={'Asset Amount'} name={'amount'} />
+                        <SelectInput className="bg-white" label={'Asset Type'} name={'type'} options={[
+                            {
+                                name: 'Bean',
+                                value: 'beans'
+                            },
+                            {
+                                name: 'Coin',
+                                value: 'coins'
+                            },
+                            {
+                                name: 'Diamond',
+                                value: 'diamonds'
+                            },
+                            {
+                                name: 'Star',
+                                value: 'stars'
+                            },
+                        ]} />
+                        <button type='submit' className='py-2 rounded-md bg-primary w-full text-white font-medium '>
+                            Send
+                        </button>
+                    </div>
 
-            <div className=" max-w-[350px] w-full">
-              <button
-                type="submit"
-                className={`bg-[#EE6093] w-full py-2 rounded-lg text-white font-semibold`}>
-                Send
-              </button>
-            </div>
-          </div>
-        </form>
+                </form>
+                <div className=' w-[300px] mt-20 md:mt-0'>
+                    <TextInput label={'Search User'} onChange={(e) => setsearchedUserId(e.target.value)} />
+                    <div className='max-h-[200px] overflow-y-scroll shadow-md mt-2'>
+                        {
+                            searchedUsers.map((user, i) => <div key={i} onClick={()=> selectUser(user)}>
+                                <p className='p-1 border rounded border-primary duration-100 hover:bg-primary hover:text-white'>
+                                    {user.firstName || 'No Name'}
+                                </p>
+                            </div>)
+                        }
+                        {
+                            searchedUsers.length === 0 && <div>
+                                <p className='p-2'>0 User Found</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
       </div>
       <ConfirmModal open={confModalOpen} setOpen={setConfModalOpen} title={confModalTitle} nextFunc={confNextFunc} />
     </ThemeProvider>
