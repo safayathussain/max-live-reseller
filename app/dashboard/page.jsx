@@ -43,7 +43,7 @@ const Page = () => {
     const [searchedUserId, setsearchedUserId] = useState('');
     const [allUsers, setallUsers] = useState([])
     const selectUser = (user) => {
-        ref.current.adId.value = user._id
+        ref.current.recipientId.value = user._id
     }
     useEffect(() => {
         const loadData = async () => {
@@ -88,7 +88,7 @@ const Page = () => {
                 <form ref={ref} onSubmit={handleSubmit} className=" py-20">
                     <p className='text-xl text-center mb-5 text-primary font-semibold'>Transaction</p>
                     <div className='min-w-[350px] mx-auto w-min flex flex-col gap-3'>
-                        <TextInput label={'User ID'} name={'adId'} />
+                        <TextInput label={'User ID'} name={'recipientId'} />
                         <TextInput label={'Asset Amount'} name={'amount'} />
                         <SelectInput className="bg-white" label={'Asset Type'} name={'type'} options={[
                             {
