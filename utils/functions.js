@@ -9,11 +9,9 @@ export function capitalizeAllWords(str) {
   return capitalizedWords.join(' ');
 }
 export const getAuth = () => {
-  const auth = store.getState().auth.user;
-  console.log(auth)
-  if (auth.user?.role === 'BR') {
-    // console.log(auth)
-    return auth.user
+  const auth = store.getState().auth?.user?.user;
+  if (auth.role === 'BR') {
+    return auth
   } else if (auth?.accessToken) {
     const data = jwtDecode(auth?.accessToken || '')
     return data.user
@@ -21,20 +19,19 @@ export const getAuth = () => {
     return {}
   }
 }
-export const loginUser = async (email, password, func) => {
-  const res = await FetchApi({ url: 'admin/signInAllUsers', method: 'post', data: { email, password }, callback: func })
-  if (res.status === 200) {
-    if(res.data.user.role === 'BR'){
+export const loginUser = async (email, password) => {
+  const res = await FetchApi({ url: '/admin/signInAllUsers', method: 'post', data: { email, password },  })
+  if (res?.status === 200) {
+    console.log(res)
+    if (res?.data?.user.role === 'BR') {
       store.dispatch(setAuth(res?.data))
       window.location = '/dashboard'
-    }else {
-      toast.error('Invalid email or password')
+    } else {
+      toast.error('Invalid email or password.')
     }
 
   }
-
   return res;
-
 }
 
 export const logoutUser = () => {
@@ -42,3 +39,23 @@ export const logoutUser = () => {
   window.location = '/login'
 }
 
+
+export const refetchAuth = async () => {
+  const auth = store.getState().auth?.user;
+  try {
+    
+    const res = await FetchApi({
+      url: `/user/getUserById/${auth.user._id}`, callback: () => {
+      }
+    })
+    if(res.status === 200) {
+      const newObj = {
+        ...auth,
+        user: res.data.user,
+      }
+      store.dispatch(setAuth(newObj))
+    }
+  } catch (error) {
+    store.dispatch(setAuth({}))
+  }
+}

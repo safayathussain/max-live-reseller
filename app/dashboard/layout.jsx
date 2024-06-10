@@ -1,15 +1,26 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import { getAuth } from "@/utils/functions";
+import { getAuth, logoutUser, refetchAuth } from "@/utils/functions";
+import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const DashboardLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter()
-  const authData = getAuth()
-  if (!authData || authData.role !== 'BR') return router.push('/login')
+  const auth = useSelector(state => state.auth.user)
+  if (auth?.user?.role !== 'BR') return router.push('/login')
+    console.log(auth)
+  const currentTime = Date.now() / 1000;
+  const decodedData = jwtDecode(auth.token);
+  if (decodedData.exp < currentTime) {
+    logoutUser()
+  }
+  useEffect(() => {
+    refetchAuth()
+  }, [])
   return (
     <div className="min-h-screen">
       <div className="flex items-center bg-primary">
