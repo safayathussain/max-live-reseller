@@ -18,7 +18,15 @@ const page = () => {
 
   const router = useRouter()
   const auth = getAuth()
-  if (auth?.role === 'BR') return router.push('/dashboard/')
+  const dispatch = useDispatch()
+  console.log(auth)
+  // if (auth?.role === 'BR') return router.push('/dashboard/')
+    if (auth?.role === 'BR') {
+      return router.push('/dashboard')
+    }
+    else {
+       dispatch(setAuth({}))
+    }
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value

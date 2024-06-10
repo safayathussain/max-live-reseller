@@ -10,6 +10,7 @@ export function capitalizeAllWords(str) {
 }
 export const getAuth = () => {
   const auth = store.getState().auth?.user?.user;
+  if(!auth) return {}
   if (auth.role === 'BR') {
     return auth
   } else if (auth?.accessToken) {
@@ -43,15 +44,14 @@ export const logoutUser = () => {
 export const refetchAuth = async () => {
   const auth = store.getState().auth?.user;
   try {
-    
     const res = await FetchApi({
-      url: `/user/getUserById/${auth.user._id}`, callback: () => {
+      url: `/user/getUserById/${auth?.user?._id}`, callback: () => {
       }
     })
     if(res.status === 200) {
       const newObj = {
         ...auth,
-        user: res.data.user,
+        user: res?.data?.user,
       }
       store.dispatch(setAuth(newObj))
     }
