@@ -70,7 +70,7 @@ const Page = () => {
 
 
   useEffect(() => {
-    const arr = allUsers.filter(item => item._id.includes(searchedUserId))
+    const arr = allUsers.filter(item => item._id.includes(searchedUserId.replace(/\s/g, '')))
     setSearchedUsers(arr)
   }, [searchedUserId, allUsers.length])
   return (
