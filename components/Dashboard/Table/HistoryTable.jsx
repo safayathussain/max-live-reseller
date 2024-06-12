@@ -34,7 +34,7 @@ export default function HistoryTable() {
         loadData()
     }, [])
     let searchedUsers = users.filter((user) =>
-        user._id.includes(searchTerm)
+        user._id.includes(searchTerm.replace(/\s/g, ''))
     );
 
     // Function to handle sorting
