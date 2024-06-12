@@ -6,6 +6,7 @@ import useClickOutside from "@/hooks/useClickOutside";
 import Modal from "@/components/Modal";
 import { FetchApi } from "@/utils/FetchApi";
 import TextInput from "@/components/TextInput";
+import { getAuth, useAuth } from "@/utils/functions";
 
 export default function HistoryTable() {
 
@@ -16,14 +17,18 @@ export default function HistoryTable() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
     const [open, setOpen] = useState(false);
-
+    const {auth} = useAuth()
     const ref = useRef(null);
+    const date = new Date()
+
     useClickOutside(ref, () => {
         setOpen(false);
     });
     const loadData = async () => {
-        const { data } = await FetchApi({ url: `user/getAllUser` })
-        setUsers(data?.users.users)
+        const { data = {
+            transactions: []
+        } } = await FetchApi({ url: `bean/beans-sent?userId=${auth._id}&startDate=2024-01-01&endDate=${date.getUTCFullYear()}-${date.getMonth() + 1}-${date.getUTCDate() + 1}` })
+        setUsers(data?.transactions)
     }
     useEffect(() => {
         loadData()
@@ -46,8 +51,12 @@ export default function HistoryTable() {
 
     if (sortBy) {
         searchedUsers = searchedUsers.sort((a, b) => {
-            const compareA = a[sortBy];
-            const compareB = b[sortBy];
+            let compareA = a[sortBy];
+            let compareB = b[sortBy];
+            if(sortBy === 'createdAt') {
+                compareA = new Date(a[sortBy])
+                compareB= new Date(b[sortBy])
+            }
             if (compareA < compareB) {
                 return sortOrder === "asc" ? -1 : 1;
             }
@@ -69,7 +78,6 @@ export default function HistoryTable() {
         indexOfFirstItem,
         indexOfLastItem
     );
-
     return (
         <div className=" overflow-hidden">
             <div className="flex flex-col md:flex-row items-center justify-between  pb-4">
@@ -86,43 +94,87 @@ export default function HistoryTable() {
                 <table className="w-full text-sm text-left text-gray-500 ">
                     <thead className="text-xs text-lightGray uppercase  bg-white">
                         <tr>
+
                             <th className="px-4 py-3 cursor-pointer ">
                                 <span className=" flex items-center font-medium">
                                     Sl
                                 </span>
                             </th>
-                            <th className="px-4 py-3 cursor-pointer ">
+                            <th className="px-4 py-3 cursor-pointer " onClick={() => handleSort("_id")}>
                                 <span className=" flex items-center font-medium">
-                                    Full Name
+                                    User ID
+                                    <svg
+                                        width="15"
+                                        height="10"
+                                        viewBox="0 0 9 5"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="ml-1"
+                                    >
+                                        <path
+                                            d="M5.14727 4.15516C4.75412 4.49564 4.17057 4.49564 3.77743 4.15516L1.14728 1.87738C0.415013 1.24323 0.863505 0.0402738 1.8322 0.0402738L7.0925 0.0402743C8.06119 0.0402744 8.50968 1.24323 7.77742 1.87739L5.14727 4.15516Z"
+                                            fill="#B5BFC9"
+                                        />
+                                    </svg>
                                 </span>
+
                             </th>
-                            <th className="px-4 py-3 cursor-pointer">
-                                <span className=" flex items-center font-medium">
-                                    Email Address
-                                </span>
-                            </th>
-                            <th className="px-4 py-3 cursor-pointer">
+                            <th className="px-4 py-3 cursor-pointer" onClick={() => handleSort("createdAt")}>
                                 <span className=" flex items-center font-medium">
                                     Date
+                                    <svg
+                                        width="15"
+                                        height="10"
+                                        viewBox="0 0 9 5"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="ml-1"
+                                    >
+                                        <path
+                                            d="M5.14727 4.15516C4.75412 4.49564 4.17057 4.49564 3.77743 4.15516L1.14728 1.87738C0.415013 1.24323 0.863505 0.0402738 1.8322 0.0402738L7.0925 0.0402743C8.06119 0.0402744 8.50968 1.24323 7.77742 1.87739L5.14727 4.15516Z"
+                                            fill="#B5BFC9"
+                                        />
+                                    </svg>
                                 </span>
                             </th>
-                            <th className="px-4 py-3 cursor-pointer">
+                            <th className="px-4 py-3 cursor-pointer" onClick={() => handleSort("amount")}>
                                 <span className=" flex items-center font-medium">
                                     Beans
+                                    <svg
+                                        width="15"
+                                        height="10"
+                                        viewBox="0 0 9 5"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="ml-1"
+                                    >
+                                        <path
+                                            d="M5.14727 4.15516C4.75412 4.49564 4.17057 4.49564 3.77743 4.15516L1.14728 1.87738C0.415013 1.24323 0.863505 0.0402738 1.8322 0.0402738L7.0925 0.0402743C8.06119 0.0402744 8.50968 1.24323 7.77742 1.87739L5.14727 4.15516Z"
+                                            fill="#B5BFC9"
+                                        />
+                                    </svg>
                                 </span>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {currentUsers.map((user, i) => (
-                            <tr key={user._id} className="border-b whitespace-nowrap">
+                        {currentUsers?.map((user, i) => (
+                            <tr key={i} className="border-b whitespace-nowrap">
                                 <td className="px-4 py-4">{i + 1}</td>
                                 <td onClick={() => setOpen(true)} className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
-                                    {user.firstName}
+                                    {user._id}
                                 </td>
-                                <td className="px-4 py-4">{user.email}</td>
-                                <td className="px-4 py-4">{user.date}</td>
-                                <td className="px-4 py-4">{user.beans}</td>
+                                <td className="px-4 py-4">
+                                    {(() => {
+                                        const date = new Date();
+                                        const day = date.getUTCDate();
+                                        const month = date.toLocaleString('en-US', { month: 'long', timeZone: 'UTC' });
+                                        const year = date.getUTCFullYear();
+                                        return `${day} ${month}, ${year}`;
+                                    })()}
+                                </td>
+
+                                <td className="px-4 py-4">{user.amount}</td>
 
                             </tr>
                         ))}

@@ -5,12 +5,11 @@ import React, { useEffect, useState } from 'react'
 import { HiMenu } from 'react-icons/hi';
 import logo from '@/public/logo.svg'
 import { usePathname } from 'next/navigation';
-import { capitalizeAllWords, getAuth, logoutUser } from '@/utils/functions';
+import { capitalizeAllWords, getAuth, logoutUser, useAuth } from '@/utils/functions';
 import Link from 'next/link';
 
 const Navbar = ({ open, setOpen }) => {
-    const auth = getAuth();
-    console.log(auth)
+    const {auth} = useAuth();
     const pathname = usePathname()
     const pageTitle = capitalizeAllWords((pathname?.split('/')[2])?.replace('-', ' ') || 'dashboard')
     return (

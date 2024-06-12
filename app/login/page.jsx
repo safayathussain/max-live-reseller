@@ -8,25 +8,28 @@ import { setAuth } from "@/redux/slices/AuthSlice";
 import axios from "axios";
 import { FetchApi } from "@/utils/FetchApi";
 import { useRouter } from "next/navigation";
-import { getAuth, loginUser } from "@/utils/functions";
+import { getAuth, loginUser, useAuth } from "@/utils/functions";
 import { TextField } from "@mui/material";
 import TextInput from "@/components/TextInput";
+import { useEffect } from "react";
 
 
 
 const page = () => {
 
   const router = useRouter()
-  const auth = getAuth()
+  const { auth } = useAuth()
   const dispatch = useDispatch()
-  console.log(auth)
-  // if (auth?.role === 'BR') return router.push('/dashboard/')
+  useEffect(() => {
     if (auth?.role === 'BR') {
       return router.push('/dashboard')
     }
     else {
-       dispatch(setAuth({}))
+      dispatch(setAuth({}))
     }
+    
+  }, [])
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target.email.value

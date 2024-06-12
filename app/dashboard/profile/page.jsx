@@ -4,7 +4,7 @@ import logo from '@/public/logo.svg'
 import Link from 'next/link';
 import { useState, useRef } from 'react';
 import TextInput from '@/components/TextInput';
-import { capitalizeAllWords, getAuth } from '@/utils/functions';
+import { capitalizeAllWords, getAuth, useAuth } from '@/utils/functions';
 import toast from 'react-hot-toast';
 import { setAuth } from '@/redux/slices/AuthSlice';
 import { FetchApi } from '@/utils/FetchApi';
@@ -12,31 +12,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { store } from '@/redux/store';
 
 const Page = () => {
-  const dispatch = useDispatch()
-  const authState = getAuth();
-  const authRstate = useSelector(state => state.auth.user)
+  const { auth: authState, refetchAuth } = useAuth();
   const [profileData, setProfileData] = useState({
     firstName: authState.firstName || '',
     lastName: authState.lastName || '',
     email: authState.email || '',
-    country : authState.country || '',
-    vipStatus : authState.vipStatus || false,
-    vipLevel : authState.vipLevel || 0,
-    beans : authState.beans || 0,
-    coins : authState.coins || 0,
-    diamonds : authState.diamonds || 0,
-    stars : authState.stars || 0,
+    country: authState.country || '',
+    vipStatus: authState.vipStatus || false,
+    vipLevel: authState.vipLevel || 0,
+    beans: authState.beans || 0,
+    coins: authState.coins || 0,
+    diamonds: authState.diamonds || 0,
+    stars: authState.stars || 0,
     _id: authState._id || '',
   });
-  console.log(authState)
   const updateUser = async (formData) => {
-    const response = await FetchApi({
-      url: `/user/updateUserInfo/${authState._id}`, method: 'put', data: formData, isToast: true,});
-    const newUser = {
-      ...authRstate,
-      user: response.data.updatedUser
-    }
-    dispatch(setAuth(newUser))
+    await FetchApi({
+      url: `/user/updateUserInfo/${authState._id}`, method: 'put', data: formData, isToast: true, callback: () => {
+        refetchAuth()
+      }
+    });
   }
 
   const handleChange = (e) => {

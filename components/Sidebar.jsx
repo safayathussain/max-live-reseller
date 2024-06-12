@@ -91,8 +91,8 @@ const Sidebar = ({ open, setOpen }) => {
                 <nav className="hs-accordion-group py-6 w-full mt-5 flex flex-col flex-wrap" >
                     <ul className="space-y-0.5">
                         {
-                            items.map((item, i) => <li>
-                                <Link key={i} onClick={() => setOpen(false)} className={pathname === item.link ? 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-white bg-primary' : 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-grayColor hover:bg-gray-100'} href={item.link}>
+                            items.map((item, i) => <li key={i}>
+                                <Link  onClick={() => setOpen(false)} className={pathname === item.link ? 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-white bg-primary' : 'flex items-center gap-x-3.5 py-2 px-8 duration-100 text-grayColor hover:bg-gray-100'} href={item.link}>
                                     <span className={pathname === item.link ? 'active-icon' : 'pending-icon'} >{item.icon}</span>
                                     {item.title}
                                 </Link>
