@@ -8,7 +8,7 @@ import { setAuth } from "@/redux/slices/AuthSlice";
 import axios from "axios";
 import { FetchApi } from "@/utils/FetchApi";
 import { useRouter } from "next/navigation";
-import { getAuth, loginUser, useAuth } from "@/utils/functions";
+import {  loginUser, useAuth } from "@/utils/functions";
 import { TextField } from "@mui/material";
 import TextInput from "@/components/TextInput";
 import { useEffect } from "react";

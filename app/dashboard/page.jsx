@@ -9,7 +9,7 @@ import ConfirmModal from "@/components/ConfirmModal";
 import TextInput from "@/components/TextInput";
 import { FetchApi } from "@/utils/FetchApi";
 import toast from "react-hot-toast";
-import { UseAuth, getAuth, useAuth } from "@/utils/functions";
+import { useAuth } from "@/utils/functions";
 import SelectInput from "@/components/SelectInput";
 
 
@@ -18,8 +18,8 @@ const Page = () => {
   const [confModalOpen, setConfModalOpen] = useState(false);
   const [confModalTitle, setConfModalTitle] = useState('');
   const [confNextFunc, setConfNextFunc] = useState(() => { });
-
-  const {auth, refetchAuth} = useAuth();
+  const [refetchTransaction, setRefetchTransaction] = useState(0)
+  const { auth, refetchAuth } = useAuth();
   const date = new Date()
   const ref = useRef();
   const handleSubmit = async (e) => {
@@ -38,6 +38,7 @@ const Page = () => {
       isToast: true,
       callback: () => {
         refetchAuth()
+        setRefetchTransaction(Math.random())
       }
     });
     ref.current.recipientId.value = ''
@@ -54,12 +55,19 @@ const Page = () => {
   useEffect(() => {
     const loadData = async () => {
       const { data } = await FetchApi({ url: `user/getAllUser` })
-      const { data: transactions } = await FetchApi({ url: `bean/beans-sent?userId=${auth._id}&startDate=2024-01-01&endDate=${date.getUTCFullYear()}-${date.getMonth() + 1}-${date.getUTCDate() + 1}` })
-      setTransactions(transactions)
       setallUsers(data?.users?.users.filter(user => user.role !== 'BR' && user.role !== 'AD' && user.role !== 'MP'));
     }
     loadData()
   }, [])
+  useEffect(() => {
+    const loadData = async () => {
+      const { data: transactions } = await FetchApi({ url: `bean/beans-sent?userId=${auth._id}&startDate=2024-01-01&endDate=${date.getUTCFullYear()}-${date.getMonth() + 1}-${date.getUTCDate() + 1}` })
+      setTransactions(transactions)
+    }
+    loadData()
+
+  }, [refetchTransaction])
+
 
   useEffect(() => {
     const arr = allUsers.filter(item => item._id.includes(searchedUserId))

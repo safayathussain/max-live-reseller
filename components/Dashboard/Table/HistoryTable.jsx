@@ -6,7 +6,7 @@ import useClickOutside from "@/hooks/useClickOutside";
 import Modal from "@/components/Modal";
 import { FetchApi } from "@/utils/FetchApi";
 import TextInput from "@/components/TextInput";
-import { getAuth, useAuth } from "@/utils/functions";
+import {  useAuth } from "@/utils/functions";
 
 export default function HistoryTable() {
 

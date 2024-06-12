@@ -1,7 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
-import { getAuth, logoutUser, useAuth } from "@/utils/functions";
+import {  logoutUser, useAuth } from "@/utils/functions";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";

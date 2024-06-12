@@ -4,7 +4,7 @@ import logo from '@/public/logo.svg'
 import Link from 'next/link';
 import { useState, useRef } from 'react';
 import TextInput from '@/components/TextInput';
-import { capitalizeAllWords, getAuth, useAuth } from '@/utils/functions';
+import { capitalizeAllWords, useAuth } from '@/utils/functions';
 import toast from 'react-hot-toast';
 import { setAuth } from '@/redux/slices/AuthSlice';
 import { FetchApi } from '@/utils/FetchApi';

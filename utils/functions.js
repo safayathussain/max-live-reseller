@@ -9,18 +9,18 @@ export function capitalizeAllWords(str) {
   const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
   return capitalizedWords.join(' ');
 }
-export const getAuth = () => {
-  const auth = store.getState().auth?.user?.user;
-  if (!auth) return {}
-  if (auth.role === 'BR') {
-    return auth
-  } else if (auth?.accessToken) {
-    const data = jwtDecode(auth?.accessToken || '')
-    return data.user
-  } else {
-    return {}
-  }
-}
+// export const getAuth = () => {
+//   const auth = store.getState().auth?.user?.user;
+//   if (!auth) return {}
+//   if (auth.role === 'BR') {
+//     return auth
+//   } else if (auth?.accessToken) {
+//     const data = jwtDecode(auth?.accessToken || '')
+//     return data.user
+//   } else {
+//     return {}
+//   }
+// }
 export const loginUser = async (email, password) => {
   const res = await FetchApi({ url: '/admin/signInAllUsers', method: 'post', data: { email, password }, })
   if (res?.status === 200) {
@@ -43,7 +43,7 @@ export const logoutUser = () => {
 
 
 
-export const refetchAuth = async (auth) => {
+export const refetchAuthState = async (auth) => {
   try {
     const res = await FetchApi({
       url: `/user/getUserById/${auth?.user?._id}`, callback: () => {
@@ -58,6 +58,7 @@ export const refetchAuth = async (auth) => {
     }
   } catch (error) {
     store.dispatch(setAuth({}))
+    window.location = '/login'
   }
 }
 
@@ -65,7 +66,7 @@ export const useAuth = () => {
   const auth = useSelector((state) => state.auth.user);
   return {
     auth: auth.user,
-    refetchAuth: ()=> refetchAuth(auth),
+    refetchAuth: ()=> refetchAuthState(auth),
     token: auth.token
   }
 }

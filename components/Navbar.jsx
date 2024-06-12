@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { HiMenu } from 'react-icons/hi';
 import logo from '@/public/logo.svg'
 import { usePathname } from 'next/navigation';
-import { capitalizeAllWords, getAuth, logoutUser, useAuth } from '@/utils/functions';
+import { capitalizeAllWords,  logoutUser, useAuth } from '@/utils/functions';
 import Link from 'next/link';
 
 const Navbar = ({ open, setOpen }) => {
