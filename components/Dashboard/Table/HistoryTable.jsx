@@ -162,7 +162,7 @@ export default function HistoryTable() {
                             <tr key={i} className="border-b whitespace-nowrap">
                                 <td className="px-4 py-4">{i + 1}</td>
                                 <td onClick={() => setOpen(true)} className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap cursor-pointer">
-                                    {user._id}
+                                    {user.recipientId}
                                 </td>
                                 <td className="px-4 py-4">
                                     {(() => {

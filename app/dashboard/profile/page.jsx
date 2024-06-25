@@ -24,6 +24,7 @@ const Page = () => {
     coins: authState.coins || 0,
     diamonds: authState.diamonds || 0,
     stars: authState.stars || 0,
+    MaxId: authState.maxId || 0,
     _id: authState._id || '',
   });
   const updateUser = async (formData) => {

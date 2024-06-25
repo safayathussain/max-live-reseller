@@ -50,7 +50,7 @@ const Page = () => {
   const [allUsers, setallUsers] = useState([])
   const [transactions, setTransactions] = useState({})
   const selectUser = (user) => {
-    ref.current.recipientId.value = user._id
+    ref.current.recipientId.value = user.maxId
   }
   useEffect(() => {
     const loadData = async () => {
@@ -70,7 +70,7 @@ const Page = () => {
 
 
   useEffect(() => {
-    const arr = allUsers.filter(item => item._id.includes(searchedUserId))
+    const arr = allUsers.filter(item => item.maxId.includes(searchedUserId))
     setSearchedUsers(arr)
   }, [searchedUserId, allUsers.length])
   return (
@@ -131,7 +131,7 @@ const Page = () => {
 
           </form>
           <div className=' w-[300px] mt-20 md:mt-0'>
-            <TextInput label={'Search User'} onChange={(e) => setsearchedUserId(e.target.value)} />
+            <TextInput label={'Search User By MaxID'} onChange={(e) => setsearchedUserId(e.target.value)} />
             <div className='max-h-[200px] overflow-y-scroll shadow-md mt-2'>
               {
                 searchedUsers.map((user, i) => <div key={i} onClick={() => selectUser(user)}>
