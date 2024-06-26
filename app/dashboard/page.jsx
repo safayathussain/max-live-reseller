@@ -24,12 +24,15 @@ const Page = () => {
   const ref = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const { recipientId, amount, type } = e.target
+    const { recipientId, amount, CAmount } = e.target
+    if(amount.value !== CAmount.value){
+      return toast.error("Amount and the Confirmed amount don't match")
+    }
     const body = {
       recipientId: recipientId.value,
       amount: Number(amount.value),
       resellerId: auth?._id,
-      assetType: type.value
+      assetType: 'beans'
     }
     await FetchApi({
       url: `bean/send-assets-to-allusers`,
@@ -106,24 +109,8 @@ const Page = () => {
             <div className='min-w-[350px] mx-auto w-min flex flex-col gap-3'>
               <TextInput label={'User ID'} name={'recipientId'} />
               <TextInput label={'Asset Amount'} name={'amount'} />
-              <SelectInput className="bg-white" label={'Asset Type'} name={'type'} options={[
-                {
-                  name: 'Bean',
-                  value: 'beans'
-                },
-                {
-                  name: 'Coin',
-                  value: 'coins'
-                },
-                {
-                  name: 'Diamond',
-                  value: 'diamonds'
-                },
-                {
-                  name: 'Star',
-                  value: 'stars'
-                },
-              ]} />
+              <TextInput label={'Confirm Asset Amount'} name={'CAmount'} />
+              
               <button type='submit' className='py-2 rounded-md bg-primary w-full text-white font-medium '>
                 Send
               </button>
