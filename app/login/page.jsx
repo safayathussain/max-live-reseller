@@ -44,9 +44,9 @@ const page = () => {
           <Image src={logo} alt=""></Image>
         </div>
         <div className="text-center">
-          <p className="text-xl font-semibold text-[#5C2D95]">Please Login</p>
+          <p className="text-xl font-semibold text-[#5C2D95]">Reseller Login</p>
         </div>
-        <div className="flex flex-col max-w-[350px] w-full mt-8 gap-3">
+        <div className="flex flex-col max-w-[350px] w-full mt-5 gap-3">
           {/* email */}
           <div className="relative w-full">
             <TextInput label={'Email'} name={'email'} id={'emailField'} />

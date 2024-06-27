@@ -123,7 +123,7 @@ const Page = () => {
               {
                 searchedUsers.map((user, i) => <div key={i} onClick={() => selectUser(user)}>
                   <p className='p-1 border rounded border-primary duration-100 hover:bg-primary hover:text-white'>
-                    {user.firstName || 'No Name'}
+                    {user.firstName || user.agencyName|| 'No Name'}
                   </p>
                 </div>)
               }
