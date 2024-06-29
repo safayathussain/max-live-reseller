@@ -52,12 +52,8 @@ const Page = () => {
     if (uploadedImage) {
       formData.append('profilePicture', uploadedImage);
     }
-    try {
-      await updateUser(formData);
-    } catch (error) {
-      console.error('Error updating user:', error);
-      toast.error('Failed to update profile.');
-    }
+    await updateUser(formData);
+
   };
 
   const customChooseButton = () => {
@@ -100,13 +96,13 @@ const Page = () => {
       };
       reader.readAsDataURL(file);
     }
-  
+
     // Reset file input value
     if (fileUploadRef.current) {
       fileUploadRef.current.clear();
     }
   };
-  
+
 
   return (
     <div>
@@ -121,7 +117,7 @@ const Page = () => {
                     <Image
                       width={1000}
                       height={1000}
-                      src={process.env.NEXT_PUBLIC_IMAGE_URL  + profileData.profilePicture.replace(/\s/g, '%20')}
+                      src={process.env.NEXT_PUBLIC_IMAGE_URL + profileData.profilePicture.replace(/\s/g, '%20')}
                       alt="Profile"
                       className="object-cover w-full h-full border rounded-full border-primary"
                     />
