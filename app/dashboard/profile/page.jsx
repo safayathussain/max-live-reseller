@@ -107,10 +107,10 @@ const Page = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} ref={formRef}>
-        <div className="bg-white w-full min-h-[calc(100vh-200px)] flex items-center justify-center rounded-lg">
-          <div className="flex justify-center px-8 py-10 sm:py-10">
-            <div className="flex flex-col items-center gap-3">
-              <p className="text-xl text-grayColor">Your Profile</p>
+        <div className="bg-white w-full py-12 min-h-[calc(100vh-200px)] flex items-center justify-center rounded-lg">
+          <div className="flex justify-center px-8 py-10 sm:py-4 w-full max-w-[600px]">
+            <div className="flex flex-col items-center gap-3 w-full">
+              <p className="text-xl ">Your Profile</p>
               <div className="relative w-32 h-32">
                 <div className="relative rounded-full w-32 h-32 bg-gray-300 text-white text-2xl flex items-center justify-center overflow-hidden">
                   {profileData.profilePicture.startsWith('uploads') ? (
@@ -134,13 +134,12 @@ const Page = () => {
                     )}
                 </div>
                 <FileUpload
-                  ref={fileUploadRef}
                   className="bg-error rounded-full flex justify-center items-center size-7 absolute right-2 top-[70%]"
                   mode="basic"
                   chooseOptions={{ label: ' ', icon: customChooseButton }}
                   name="profilePicture"
                   accept="image/*"
-                  maxFileSize={10000000000}
+                  maxFileSize={1000000}
                   onSelect={handleFileSelect}
                 />
               </div>
