@@ -73,7 +73,7 @@ const Page = () => {
 
 
   useEffect(() => {
-    const arr = allUsers.filter(item => item.maxId.includes(searchedUserId))
+    const arr = allUsers.filter(item => item.maxId?.includes(searchedUserId))
     setSearchedUsers(arr)
   }, [searchedUserId, allUsers.length])
   return (
